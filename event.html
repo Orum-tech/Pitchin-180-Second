@@ -11,7 +11,7 @@
         body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; background-image: radial-gradient(#2A5A8E 0.35px, transparent 0.35px), radial-gradient(#2A5A8E 0.35px, #F8FAFC 0.35px); background-size: 24px 24px; background-position: 0 0, 12px 12px; background-attachment: fixed; }
     </style>
 </head>
-<body class="text-slate-700 antialiased">
+<body class="text-slate-700 antialiased flex flex-col min-h-screen">
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-slate-100 py-4">
@@ -21,16 +21,16 @@
                 <span class="text-xl font-black text-[#2A5A8E]">Pitchin<span class="text-[#3ECBCB]">180</span>Sec</span>
             </a>
             <div class="hidden md:flex items-center gap-8 font-medium text-sm">
-                <a href="index.html">Home</a>
-                <a href="partners.html">Our Partners</a>
+                <a href="index.html" class="hover:text-[#2A5A8E] transition-colors">Home</a>
+                <a href="partners.html" class="hover:text-[#2A5A8E] transition-colors">Our Partners</a>
                 <a href="event.html" class="text-[#2A5A8E] font-bold">Next Event</a>
-                <a href="impact.html">Impact</a>
-                <a href="register.html" class="px-5 py-2 bg-[#3ECBCB] text-white rounded-full font-bold">Apply Now</a>
+                <a href="impact.html" class="hover:text-[#2A5A8E] transition-colors">Impact</a>
+                <a href="register.html" class="px-5 py-2 bg-[#3ECBCB] text-white rounded-full font-bold shadow-md hover:bg-[#2A5A8E] transition-colors">Apply Now</a>
             </div>
         </div>
     </nav>
 
-    <section class="pt-40 pb-24">
+    <main class="flex-grow pt-40 pb-24">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row gap-16 items-center">
                 <div class="md:w-1/2">
@@ -54,7 +54,67 @@
                 </div>
             </div>
         </div>
-    </section>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-[#1e4066] py-8 text-white text-sm border-t border-white/10 mt-auto">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white font-bold text-lg">P</div>
+                    <span class="text-xl font-black text-white">Pitchin<span class="text-[#3ECBCB]">180</span>Sec</span>
+                </div>
+                <p class="text-blue-200/60 max-w-sm leading-relaxed mb-6 text-xs">
+                    Empowering the next generation of Indian startups from the heart of the country. We bridge the gap between Tier-2 innovation and Tier-1 capital.
+                </p>
+                <div class="flex gap-3">
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3ECBCB] transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3ECBCB] transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3ECBCB] transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                </div>
+
+                <!-- Contact Details -->
+                <div class="mt-6 pt-6 border-t border-white/5">
+                    <h5 class="text-white font-bold mb-3 text-xs uppercase tracking-wider">Contact Us</h5>
+                    <div class="flex flex-col gap-3">
+                        <a href="mailto:event@unibazar.in" class="flex items-center gap-3 text-blue-200/60 hover:text-[#3ECBCB] transition-colors group">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <span class="font-medium text-xs">event@unibazar.in</span>
+                        </a>
+                        <a href="tel:+917477237960" class="flex items-center gap-3 text-blue-200/60 hover:text-[#3ECBCB] transition-colors group">
+                            <i data-lucide="phone" class="w-4 h-4"></i>
+                            <span class="font-medium text-xs">+91 747 723 7960</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Compact Links Column -->
+            <div class="col-span-1 md:col-span-2 grid grid-cols-2 gap-4">
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Platform</h4>
+                    <ul class="space-y-3 text-blue-200/60 text-xs">
+                        <li><a href="index.html" class="hover:text-[#3ECBCB] transition-colors">Home</a></li>
+                        <li><a href="event.html" class="hover:text-[#3ECBCB] transition-colors">Next Event</a></li>
+                        <li><a href="impact.html" class="hover:text-[#3ECBCB] transition-colors">Impact Report</a></li>
+                        <li><a href="partners.html" class="hover:text-[#3ECBCB] transition-colors">Our Partners</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-white mb-4 text-sm">Legal</h4>
+                    <ul class="space-y-3 text-blue-200/60 text-xs">
+                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors">Cookie Policy</a></li>
+                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors">Contact Support</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-white/5 pt-8 text-center text-blue-200/40 text-[10px]">
+            <p>&copy; 2026 Unibazar Tech. PVT LTD. All rights reserved. Built for Founders.</p>
+        </div>
+    </footer>
 
     <script>lucide.createIcons();</script>
 </body>
