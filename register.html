@@ -59,8 +59,8 @@
                         <form id="registrationForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
                             
                             <!-- Web3Forms Configuration -->
-                            <!-- UPDATED ACCESS KEY -->
-                            <input type="hidden" name="access_key" value="89773b05-515a-484b-bcd8-d3be98c7cc11">
+                            <!-- CORRECT ACCESS KEY ADDED HERE -->
+                            <input type="hidden" name="access_key" id="accessKey" value="89773b05-515a-484b-bcd8-d3be98c7cc11">
                             
                             <!-- Custom Subject for your Email -->
                             <input type="hidden" name="subject" id="hiddenSubject" value="New Startup Application">
@@ -283,15 +283,18 @@ Source: Pitchin180Sec Web Form`;
             btnIcon.classList.add('hidden');
             loader.classList.remove('hidden');
 
+            const formData = new FormData(form);
+    formData.append("access_key", "89773b05-515a-484b-bcd8-d3be98c7cc11");
+
+    const originalText = submitBtn.textContent;
+
+    submitBtn.textContent = "Sending...";
+    submitBtn.disabled = true;
+
             try {
                 // 4. Send via Web3Forms API (No Redirect)
                 const form = event.target;
                 const data = new FormData(form);
-                 formData.append("access_key", "89773b05-515a-484b-bcd8-d3be98c7cc11");
-                 const originalText = submitBtn.textContent;
-
-    submitBtn.textContent = "Sending...";
-    submitBtn.disabled = true;
                 
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
