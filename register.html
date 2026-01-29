@@ -10,6 +10,10 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #F8FAFC; background-image: radial-gradient(#2A5A8E 0.35px, transparent 0.35px), radial-gradient(#2A5A8E 0.35px, #F8FAFC 0.35px); background-size: 24px 24px; background-position: 0 0, 12px 12px; background-attachment: fixed; }
         .input-focus:focus { border-color: #3ECBCB; outline: none; box-shadow: 0 0 0 4px rgba(62, 203, 203, 0.1); }
+        
+        /* Spinner Animation */
+        .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #3ECBCB; width: 20px; height: 20px; -webkit-animation: spin 1s linear infinite; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body class="text-slate-700 antialiased flex flex-col min-h-screen">
@@ -37,44 +41,92 @@
                 
                 <!-- Registration Form -->
                 <div class="lg:col-span-3">
-                    <div class="bg-white p-10 rounded-3xl shadow-2xl border border-slate-100">
-                        <h2 class="text-3xl font-black text-[#2A5A8E] mb-2">Startup Application</h2>
-                        <p class="text-slate-500 mb-8">Selected startups will be invited to pitch physically in Bhopal.</p>
+                    <div class="bg-white p-10 rounded-3xl shadow-2xl border border-slate-100 relative overflow-hidden">
                         
-                        <form class="space-y-6">
+                        <!-- Success Message Overlay (Hidden by default) -->
+                        <div id="successMessage" class="absolute inset-0 bg-white z-20 flex flex-col items-center justify-center text-center p-10 hidden">
+                            <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6">
+                                <i data-lucide="check" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-3xl font-black text-[#2A5A8E] mb-2">Application Received!</h3>
+                            <p class="text-slate-500 mb-8">Thanks for applying. We have sent the details to our team and will get back to you shortly.</p>
+                            <button onclick="location.reload()" class="px-8 py-3 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-slate-200 transition-colors">Submit Another</button>
+                        </div>
+
+                        <h2 class="text-3xl font-black text-[#2A5A8E] mb-2">Startup Application</h2>
+                        <p class="text-slate-500 mb-8">Selected startups will be invited to pitch physically in Bhopal. Please fill in the details below.</p>
+                        
+                        <form id="registrationForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                            
+                            <!-- Web3Forms Configuration -->
+                            <!-- UPDATED ACCESS KEY -->
+                            <input type="hidden" name="access_key" value="35561ca8-f3d1-4245-b784-8bf420f48cd0">
+                            
+                            <!-- Custom Subject for your Email -->
+                            <input type="hidden" name="subject" id="hiddenSubject" value="New Startup Application">
+                            <input type="hidden" name="from_name" value="Pitchin180Sec Website">
+                            
+                            <!-- This textarea will hold the formatted data -->
+                            <textarea name="Application_Details" id="hiddenFormattedData" class="hidden"></textarea>
+
+                            <!-- Basic Info -->
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Founder Name</label>
-                                    <input type="text" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Amit Sharma">
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Founder Name *</label>
+                                    <input type="text" id="founderName" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Amit Sharma" required>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Startup Name</label>
-                                    <input type="text" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Unibazar">
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Startup Name *</label>
+                                    <input type="text" id="startupName" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Unibazar" required>
                                 </div>
                             </div>
                             
+                            <!-- Contact Info -->
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Current Stage</label>
-                                    <select class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus">
-                                        <option>Idea Stage</option>
-                                        <option>MVP / Prototype</option>
-                                        <option>Early Traction</option>
-                                        <option>Scaling</option>
-                                    </select>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address *</label>
+                                    <input type="email" name="email" id="email" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="founder@startup.com" required>
                                 </div>
                                 <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Phone Number</label>
-                                    <input type="tel" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="+91 XXXXX XXXXX">
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Phone Number *</label>
+                                    <input type="tel" id="phone" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="+91 98765 43210" required>
                                 </div>
                             </div>
 
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Brief Pitch (One Sentence)</label>
-                                <textarea rows="3" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="What problem are you solving?"></textarea>
+                            <!-- Business Details -->
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Current Stage *</label>
+                                    <div class="relative">
+                                        <select id="stage" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus appearance-none">
+                                            <option>Idea Stage (Concept)</option>
+                                            <option>MVP (Prototype Ready)</option>
+                                            <option>Early Traction (Pre-Revenue)</option>
+                                            <option>Revenue Generating</option>
+                                            <option>Scaling (Seed/Series A)</option>
+                                        </select>
+                                        <i data-lucide="chevron-down" class="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Website / LinkedIn</label>
+                                    <input type="text" id="website" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="https://...">
+                                </div>
                             </div>
 
-                            <button type="button" class="w-full py-5 bg-[#2A5A8E] text-white font-black rounded-xl shadow-lg hover:bg-[#1a3a5e] transition-colors">Submit Application</button>
+                            <!-- Pitch -->
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">The 180-Second Pitch (Text Draft) *</label>
+                                <p class="text-[10px] text-slate-400 mb-2">Describe your problem, solution, and unique value proposition briefly.</p>
+                                <textarea id="pitch" rows="5" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="We are solving [Problem] for [Target Audience] by providing [Solution]..." required></textarea>
+                            </div>
+
+                            <button type="submit" id="submitBtn" class="w-full py-5 bg-[#2A5A8E] text-white font-black rounded-xl shadow-lg hover:bg-[#1a3a5e] transition-colors flex items-center justify-center gap-3">
+                                <span>Submit Application</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5" id="btnIcon"></i>
+                                <div id="btnLoader" class="loader hidden"></div>
+                            </button>
+                            <p class="text-center text-xs text-slate-400 mt-2">Data will be sent securely to our team.</p>
                         </form>
                     </div>
                 </div>
@@ -109,7 +161,7 @@
                     <div class="mt-12 p-8 bg-[#3ECBCB]/10 rounded-3xl border border-[#3ECBCB]/20">
                         <h4 class="font-bold text-[#2A5A8E] mb-2 text-lg">Are you an Investor?</h4>
                         <p class="text-slate-600 text-sm mb-4">We have exclusive slots for Angel Investors and VCs. Contact us for a guest pass.</p>
-                        <a href="mailto:event@unibazar.in" class="text-[#2A5A8E] font-bold text-sm underline">Partner with us &rarr;</a>
+                        <a href="mailto:event@unibazar.in?subject=Investor%20Pass%20Request" class="text-[#2A5A8E] font-bold text-sm underline">Partner with us &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -176,6 +228,97 @@
         </div>
     </footer>
 
-    <script>lucide.createIcons();</script>
+    <script>
+        lucide.createIcons();
+
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            
+            // UI States
+            const btn = document.getElementById('submitBtn');
+            const btnText = btn.querySelector('span');
+            const btnIcon = document.getElementById('btnIcon');
+            const loader = document.getElementById('btnLoader');
+            const successMsg = document.getElementById('successMessage');
+
+            // 1. Get Values
+            const founderName = document.getElementById('founderName').value;
+            const startupName = document.getElementById('startupName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const stage = document.getElementById('stage').value;
+            const website = document.getElementById('website').value || 'Not provided';
+            const pitch = document.getElementById('pitch').value;
+
+            // 2. Prepare Structured Data (Formatted specifically for the email body)
+            // This format ensures the data arrives in your Gmail looking professional and structured
+            const formattedBody = 
+`NEW STARTUP APPLICATION - PITCHIN180SEC
+----------------------------------------
+
+FOUNDER DETAILS
+Name: ${founderName}
+Email: ${email}
+Phone: ${phone}
+Website/LinkedIn: ${website}
+
+STARTUP DETAILS
+Name: ${startupName}
+Current Stage: ${stage}
+
+THE PITCH
+----------------------------------------
+${pitch}
+
+----------------------------------------
+Source: Pitchin180Sec Web Form`;
+
+            // Update the hidden fields that Web3Forms will read
+            document.getElementById('hiddenSubject').value = `Application: ${startupName} - [Pitchin180Sec]`;
+            document.getElementById('hiddenFormattedData').value = formattedBody;
+
+            // 3. Set Loading State
+            btn.disabled = true;
+            btnText.textContent = "Sending...";
+            btnIcon.classList.add('hidden');
+            loader.classList.remove('hidden');
+
+            try {
+                // 4. Send via Web3Forms API (No Redirect)
+                const form = event.target;
+                const data = new FormData(form);
+                
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: data
+                });
+
+                const json = await response.json();
+
+                if (response.status == 200) {
+                    // Success: Show Overlay
+                    successMsg.classList.remove('hidden');
+                    form.reset();
+                } else {
+                    // Error from Service
+                    console.log(json);
+                    alert("Submission failed. Please try again later.");
+                    resetBtn();
+                }
+            } catch (error) {
+                // Network Error
+                console.log(error);
+                alert("Network error. Please check your connection.");
+                resetBtn();
+            }
+
+            function resetBtn() {
+                btn.disabled = false;
+                btnText.textContent = "Submit Application";
+                btnIcon.classList.remove('hidden');
+                loader.classList.add('hidden');
+            }
+        }
+    </script>
 </body>
 </html>
