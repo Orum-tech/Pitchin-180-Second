@@ -166,25 +166,12 @@
         </div>
     </nav>
 
-    <!-- Hero Section with Slanted Bottom -->
-    <section class="relative pt-32 pb-32 md:pt-48 md:pb-48 overflow-hidden flex items-center min-h-[95vh] slant-bottom bg-white/50">
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-32 md:pt-48 md:pb-48 overflow-hidden flex items-center min-h-screen slant-bottom bg-white/50">
         <!-- Background Elements -->
         <div class="absolute inset-0 z-0 hero-glow"></div>
         <div class="absolute top-20 right-0 w-72 h-72 md:w-96 md:h-96 bg-[#3ECBCB]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 animate-pulse"></div>
         <div class="absolute bottom-0 left-0 w-64 h-64 md:w-72 md:h-72 bg-[#2A5A8E]/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3"></div>
-
-        <!-- INDIA MAP BACKGROUND with Animated Nodes -->
-        <div class="absolute inset-0 z-0 flex items-center justify-center pointer-events-none opacity-[0.05] overflow-hidden">
-            <div class="relative transform scale-110 translate-y-10">
-                <svg class="h-[80vh] w-auto text-[#2A5A8E] fill-current" viewBox="0 0 600 700" xmlns="http://www.w3.org/2000/svg">
-                     <path d="M280.5,10.5 C290,12 300,15 305,20 C315,30 320,40 325,50 C330,60 335,70 330,80 C325,90 320,100 325,110 C330,115 340,120 350,125 C360,130 370,135 380,130 C390,125 400,120 410,125 C420,130 430,140 435,150 C440,160 445,170 450,180 C460,190 470,185 480,180 C490,175 500,180 505,190 C510,200 515,210 510,220 C505,230 500,240 510,250 C515,255 525,260 530,265 C535,270 540,280 535,290 C530,300 520,310 510,320 C500,330 490,340 480,350 C470,360 460,370 450,380 C440,390 430,400 420,410 C415,420 420,430 425,440 C430,450 435,460 430,470 C425,480 420,490 410,500 C400,510 390,520 380,530 C370,540 360,550 350,560 C340,570 330,580 320,590 C310,600 300,610 290,620 C280,630 270,640 260,650 C250,640 240,630 235,620 C230,610 225,600 230,590 C235,580 240,570 235,560 C230,550 220,540 215,530 C210,520 205,510 210,500 C215,490 220,480 215,470 C210,460 205,450 200,440 C195,430 190,420 185,410 C180,400 170,390 160,380 C150,370 140,360 135,350 C130,340 125,330 130,320 C135,310 140,300 135,290 C130,280 120,270 110,260 C100,250 90,240 85,230 C80,220 75,210 80,200 C85,190 90,180 95,170 C100,160 110,150 120,155 C130,160 140,165 145,155 C150,145 155,135 150,125 C145,115 140,105 145,95 C150,85 160,80 170,75 C180,70 190,65 200,60 C210,55 220,50 230,45 C240,40 250,35 260,30 C270,25 275,20 280.5,10.5 Z" />
-                </svg>
-                <!-- Animated Nodes representing connection -->
-                <div class="absolute top-[30%] left-[30%] w-3 h-3 bg-[#3ECBCB] rounded-full node-pulse"></div>
-                <div class="absolute top-[45%] left-[45%] w-4 h-4 bg-[#2A5A8E] rounded-full node-pulse" style="animation-delay: 1s;"></div>
-                <div class="absolute top-[60%] left-[35%] w-2 h-2 bg-[#3ECBCB] rounded-full node-pulse" style="animation-delay: 0.5s;"></div>
-            </div>
-        </div>
 
         <div class="container mx-auto px-6 relative z-10 text-center">
             <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-[#3ECBCB]/20 text-[#2A5A8E] text-xs font-bold uppercase tracking-widest mb-8 md:mb-12 shadow-lg shadow-slate-200/50 animate-float backdrop-blur-sm">
@@ -199,12 +186,12 @@
                 180 Seconds to <br><span class="gradient-text">Connect & Conquer</span>
             </h1>
             
-            <p class="text-lg md:text-2xl text-slate-600 max-w-3xl mx-auto mb-12 font-medium leading-relaxed reveal active" style="transition-delay: 100ms;">
+            <p class="text-lg md:text-2xl text-slate-600 max-w-3xl mx-auto mb-16 font-medium leading-relaxed reveal active" style="transition-delay: 100ms;">
                 The most intense pitchathon for Indian founders. <br class="hidden md:block"> No slides. No jargon. Just you, your vision, and the clock.
             </p>
             
-            <!-- Timer Cards - Improved Design -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto mb-14 reveal active" style="transition-delay: 200ms;">
+            <!-- Timer Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto mb-10 reveal active" style="transition-delay: 200ms;">
                 <div class="glass-card p-6 rounded-2xl border-t-4 border-t-[#2A5A8E]">
                     <span id="days" class="text-4xl md:text-5xl font-black block text-slate-800 tracking-tight">00</span>
                     <span class="text-[10px] md:text-xs uppercase text-slate-400 font-bold tracking-widest mt-1 block">Days</span>
@@ -223,6 +210,31 @@
                 </div>
             </div>
 
+            <!-- NEW MAP SECTION: Side by Side -->
+            <div class="w-full max-w-6xl mx-auto my-16 md:my-24 reveal active flex flex-col md:flex-row items-center gap-10 md:gap-16" style="transition-delay: 250ms;">
+                
+                <!-- Text Content Side -->
+                <div class="w-full md:w-1/2 text-center md:text-left space-y-6 order-2 md:order-1">
+                    <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight">
+                        Aim to connect <br>
+                        <span class="gradient-text">these cities.</span>
+                    </h2>
+                    <p class="text-lg text-slate-600 leading-relaxed font-medium">
+                        Bridging the gap between emerging innovation hubs and established capital corridors. We are creating a seamless network where geography is no longer a barrier to funding.
+                    </p>
+                    <div class="flex items-center gap-4 justify-center md:justify-start pt-2">
+                         <div class="h-1.5 w-24 gradient-bg rounded-full"></div>
+                    </div>
+                </div>
+
+                <!-- Map Image Side -->
+                <div class="w-full md:w-1/2 h-[300px] md:h-[500px] relative flex items-center justify-center order-1 md:order-2">
+                    <img src="map.png" alt="India Map Location" class="w-full h-full object-contain drop-shadow-2xl opacity-90 hover:scale-105 transition-transform duration-500">
+                </div>
+                
+            </div>
+
+            <!-- Action Buttons (Below Map) -->
             <div class="flex flex-col sm:flex-row justify-center gap-5 reveal active" style="transition-delay: 300ms;">
                 <a href="register.html" class="w-full sm:w-auto px-10 py-4 gradient-bg text-white rounded-full font-bold text-lg shadow-xl shadow-[#2A5A8E]/30 hover:scale-105 transition-all flex items-center justify-center gap-3 group">
                     Start Application 
@@ -252,9 +264,9 @@
                         <div class="w-16 h-16 bg-[#2A5A8E] rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl shadow-[#2A5A8E]/20">
                             <i data-lucide="filter" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">The Calculated Filter</h3>
+                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Why Founders Choose Pitchin-180-Seconds</h3>
                         <p class="text-base md:text-lg text-slate-600 leading-relaxed">
-                            Attention is currency. The 180-second format is a filter designed to separate clarity from confusion. If you cannot articulate your vision in three minutes, the business model isn't refined enough.
+                           Pitchin-180-Seconds is built to give startup founders direct access to active investors, funded incubators, mentors, and ecosystem leaders — all on one platform. The 180-second pitch format helps founders communicate their idea with clarity and confidence, without long decks or complex jargon.Founders from Tier-1 to Tier-3 cities get equal visibility, meaningful feedback, and strong networking opportunities — completely free of cost.
                         </p>
                     </div>
                 </div>
@@ -273,16 +285,16 @@
                         <div class="w-16 h-16 bg-[#3ECBCB] rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl shadow-[#3ECBCB]/20">
                             <i data-lucide="clock" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Investor Psychology</h3>
+                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Why Smart Investors Join Pitchin-180-Seconds</h3>
                         <p class="text-base md:text-lg text-slate-600 leading-relaxed">
-                            We replicate the pressure of a real-world elevator pitch. Every second must carry weight; every sentence must move the needle. Hit the triggers that make investors lean in.
+                           Investors get access to curated startups that are trained to explain their business clearly in just three minutes. This format saves time and highlights the founder’s thinking, conviction, and execution ability — faster than traditional pitches. It also opens doors to high-potential startups from emerging cities, before they become widely visible in the ecosystem.
                         </p>
                     </div>
                 </div>
                 <div class="w-full md:w-1/2 pr-0 md:pr-6 text-center md:text-right">
                     <h4 class="text-6xl md:text-8xl font-black text-slate-100 mb-2 md:mb-4 select-none">02</h4>
-                    <h3 class="text-2xl font-bold text-[#2A5A8E] mb-3 md:mb-4">The Decision Window</h3>
-                    <p class="text-slate-500 text-lg">It's not about speaking fast; it's about speaking with precision. The adrenaline of the clock brings out the most passionate founders.</p>
+                    <h3 class="text-2xl font-bold text-[#2A5A8E] mb-3 md:mb-4">Why Companies Sponsor Pitchin-180-Seconds</h3>
+                    <p class="text-slate-500 text-lg">Sponsoring Pitchin-180-Seconds places your brand at the center of India’s startup and innovation movement. Companies gain visibility among founders, investors, incubators, and decision-makers — both on-ground and digitally. Sponsors also get early access to partnerships, pilots, and emerging talent, while supporting meaningful entrepreneurship.</p>
                 </div>
             </div>
 
