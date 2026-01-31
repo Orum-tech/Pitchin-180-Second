@@ -8,132 +8,303 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Base Theme Preserved */
+        /* * 3D ENGINE & THEME PRESERVATION
+         * Colors: Primary #2A5A8E (Deep Blue) | Accent #3ECBCB (Cyan)
+         * Added Depth Shades: #1a3c61 (Darker Blue), #e0f7fa (Ice White)
+         */
+        
+        :root {
+            --primary: #2A5A8E;
+            --primary-dark: #1a3c61;
+            --accent: #3ECBCB;
+            --accent-glow: rgba(62, 203, 203, 0.6);
+            --glass-surface: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.8);
+        }
+
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #FFFFFF; /* Changed to Pure White */
-            /* Made pattern much lighter/subtle */
-            background-image: radial-gradient(#2A5A8E 0.15px, transparent 0.15px), radial-gradient(#2A5A8E 0.15px, #FFFFFF 0.15px); 
-            background-size: 24px 24px; 
-            background-position: 0 0, 12px 12px; 
-            background-attachment: fixed; 
+            background-color: #F8FAFC; 
+            /* Subtle hexagonal pattern overlay for tech feel */
+            background-image: 
+                radial-gradient(circle at 100% 0%, rgba(62, 203, 203, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 0% 100%, rgba(42, 90, 142, 0.1) 0%, transparent 40%),
+                linear-gradient(#F1F5F9 1px, transparent 1px), 
+                linear-gradient(90deg, #F1F5F9 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+            background-position: 0 0, 0 0, -1px -1px, -1px -1px;
+            overflow-x: hidden;
+            perspective: 1200px;
         }
         
-        /* Premium Gradients & Effects */
+        /* High-Fidelity 3D Typography */
         .gradient-text { 
+            background-image: linear-gradient(135deg, #2A5A8E 0%, #3ECBCB 100%); 
             background-clip: text; 
             -webkit-background-clip: text; 
             color: transparent; 
-            background-image: linear-gradient(135deg, #2A5A8E 0%, #3ECBCB 100%); 
+            filter: drop-shadow(0 4px 12px rgba(62, 203, 203, 0.2));
+            position: relative;
+            z-index: 10;
         }
+
+        .text-3d {
+            text-shadow: 
+                0 1px 0 #cbd5e1, 
+                0 2px 0 #94a3b8, 
+                0 3px 0 #64748b, 
+                0 4px 0 #475569, 
+                0 8px 16px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        .text-3d:hover {
+            transform: translateY(-5px);
+            text-shadow: 
+                0 1px 0 #cbd5e1, 
+                0 2px 0 #94a3b8, 
+                0 3px 0 #64748b, 
+                0 6px 0 #475569, 
+                0 12px 24px rgba(0,0,0,0.3);
+        }
+
+        /* 3D Liquid Button */
+        .btn-3d {
+            background-image: linear-gradient(135deg, #2A5A8E 0%, #3ECBCB 100%);
+            box-shadow: 
+                0 10px 20px -5px rgba(42, 90, 142, 0.4),
+                0 6px 0px 0px #1a3c61,
+                inset 0 1px 0 rgba(255,255,255,0.4);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            top: 0;
+            overflow: hidden;
+        }
+        .btn-3d::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        .btn-3d:hover::after {
+            left: 100%;
+        }
+        .btn-3d:active {
+            top: 6px;
+            box-shadow: 
+                0 2px 5px -2px rgba(42, 90, 142, 0.4),
+                0 0px 0px 0px #1a3c61;
+        }
+
         .gradient-bg {
             background-image: linear-gradient(135deg, #2A5A8E 0%, #3ECBCB 100%); 
         }
+
+        /* Advanced Glass Cards with Glare */
         .glass-card { 
-            background: rgba(255, 255, 255, 0.95); /* Heavie opacity for cleaner look */
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 1); 
-            box-shadow: 0 10px 40px -10px rgba(42, 90, 142, 0.08); /* Lighter shadow */
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: linear-gradient(145deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 100%);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255,255,255,0.8);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 
+                0 20px 40px -10px rgba(42, 90, 142, 0.15),
+                inset 0 0 0 1px rgba(255,255,255,0.5);
+            border-radius: 28px;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
+        /* Glare Effect */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, transparent 60%);
+            opacity: 0;
+            transform: translate(var(--mouse-x, -50%), var(--mouse-y, -50%));
+            pointer-events: none;
+            transition: opacity 0.3s;
+            mix-blend-mode: overlay;
+        }
+        .glass-card:hover::before { opacity: 0.5; }
+        
+        /* Content Float */
+        .glass-card-content {
+            transform: translateZ(30px);
+            transform-style: preserve-3d;
+        }
+        .glass-icon {
+            transform: translateZ(50px);
+            filter: drop-shadow(0 10px 20px rgba(62, 203, 203, 0.3));
+        }
+        
         .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 50px -10px rgba(42, 90, 142, 0.12);
-            border-color: #3ECBCB;
+            box-shadow: 
+                0 30px 60px -15px rgba(42, 90, 142, 0.3),
+                0 0 0 1px rgba(62, 203, 203, 0.3);
         }
 
-        /* Advanced Header */
+        /* Navigation Bar */
         .glass-nav {
-            background: rgba(255, 255, 255, 0.98); /* Almost solid white */
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(42, 90, 142, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px rgba(42, 90, 142, 0.05);
+            transform: translateZ(50px);
         }
-        .nav-link {
-            position: relative;
-        }
+        
+        .nav-link { position: relative; font-weight: 600; transition: color 0.3s ease; }
         .nav-link::after {
             content: '';
             position: absolute;
-            width: 4px;
-            height: 4px;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
             background: #3ECBCB;
-            border-radius: 50%;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%) scale(0);
-            transition: transform 0.2s ease;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px #3ECBCB;
         }
-        .nav-link:hover::after {
-            transform: translateX(-50%) scale(1);
-        }
+        .nav-link:hover::after { width: 100%; }
         
         /* Animations */
-        .hero-glow {
-            background: radial-gradient(circle at 50% 50%, rgba(62, 203, 203, 0.08), transparent 70%); /* Lighter glow */
+        @keyframes float-hero {
+            0%, 100% { transform: translateY(0px) rotateX(0deg) scale(1); }
+            50% { transform: translateY(-20px) rotateX(2deg) scale(1.02); }
         }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-float { animation: float-hero 8s ease-in-out infinite; }
         
-        @keyframes pulse-node {
-            0% { transform: scale(1); opacity: 0.3; }
-            50% { transform: scale(1.5); opacity: 0.8; }
-            100% { transform: scale(1); opacity: 0.3; }
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(62, 203, 203, 0); }
+            50% { box-shadow: 0 0 30px rgba(62, 203, 203, 0.3); }
         }
-        .node-pulse { animation: pulse-node 3s infinite; }
+        .pulse-3d { animation: pulse-glow 3s infinite; }
 
-        /* Slanted Sections */
+        /* Geometry */
         .slant-bottom {
-            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+            z-index: 2;
+            position: relative;
         }
         .slant-top {
-            clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%);
-            margin-top: -100px; /* Overlap to hide gap */
+            clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
+            margin-top: -100px;
             padding-top: 150px;
+            z-index: 1;
+            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
         }
 
-        /* Partner Logos - Improved for Images */
+        /* 3D Images */
+        .img-3d-wrapper {
+            perspective: 1500px;
+        }
+        .img-3d { 
+            transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            transform-style: preserve-3d;
+            box-shadow: 
+                0 20px 50px rgba(0,0,0,0.15),
+                0 0 0 1px rgba(255,255,255,0.2);
+            border-radius: 32px;
+        }
+        .img-3d:hover { 
+            transform: rotateX(2deg) rotateY(-2deg) scale(1.05) translateZ(20px); 
+            box-shadow: 
+                0 40px 80px rgba(42, 90, 142, 0.2),
+                0 0 0 2px rgba(62, 203, 203, 0.5);
+            z-index: 10;
+        }
+        
+        /* Partner Logos */
+        .partner-box {
+            background: linear-gradient(145deg, #ffffff, #f1f5f9);
+            box-shadow: 
+                10px 10px 20px #e2e8f0, 
+                -10px -10px 20px #ffffff;
+            border-radius: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .partner-box::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.8), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+        .partner-box:hover::before { transform: translateX(100%); }
+        .partner-box:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                15px 15px 30px #cbd5e1, 
+                -15px -15px 30px #ffffff;
+            border: 1px solid #3ECBCB;
+        }
         .partner-img { 
-            filter: grayscale(100%); 
-            opacity: 0.6; 
+            filter: grayscale(100%) opacity(0.5); 
             transition: all 0.4s ease; 
-            max-width: 70%;
-            max-height: 70%;
-            object-fit: contain;
+            max-width: 65%;
+            mix-blend-mode: multiply;
         }
         .group:hover .partner-img { 
-            filter: grayscale(0%); 
-            opacity: 1; 
-            transform: scale(1.05); 
+            filter: grayscale(0%) opacity(1); 
+            transform: scale(1.1); 
         }
 
-        /* Mobile Adjustments */
+        /* Interactive Canvas */
+        #hero-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none; /* Let clicks pass through */
+        }
+
+        /* Mobile */
         @media (max-width: 768px) {
             .slant-bottom, .slant-top { clip-path: none; margin-top: 0; padding-top: 5rem; }
         }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
     </style>
 </head>
-<body class="text-slate-700 antialiased overflow-x-hidden selection:bg-[#3ECBCB] selection:text-white">
+<body class="text-slate-700 antialiased selection:bg-[#3ECBCB] selection:text-white relative">
 
-    <!-- Top Gradient Strip -->
-    <div class="fixed top-0 w-full h-1.5 gradient-bg z-[60]"></div>
+    <!-- Top 3D Bar -->
+    <div class="fixed top-0 w-full h-1.5 gradient-bg z-[60] shadow-[0_2px_15px_rgba(62,203,203,0.5)]"></div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 top-1.5" id="navbar">
-        <div class="container mx-auto px-6 py-4">
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300 top-0 pt-3 pb-3" id="navbar">
+        <div class="container mx-auto px-6">
             <div class="flex justify-between items-center">
                 <!-- Logo -->
                 <a href="index.html" class="flex items-center gap-3 group relative z-50">
-                    <div class="w-11 h-11 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-xl shadow-[#2A5A8E]/10 border border-slate-100 transition-all group-hover:border-[#3ECBCB]">
+                    <div class="w-11 h-11 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-[0_5px_15px_rgba(42,90,142,0.15)] border border-slate-100 transition-all group-hover:rotate-12 group-hover:scale-110 group-hover:shadow-[0_8px_20px_rgba(62,203,203,0.3)]">
                     <img src="unibazar.jpg" alt="Logo" class="w-full h-full object-contain p-1">
-                        
                     </div>
-                    <div class="flex flex-col">
-                        <span class="text-2xl font-black text-[#2A5A8E] leading-none tracking-tight">Pitchin<span class="text-[#3ECBCB]">180</span>Sec</span>
+                    <div class="flex flex-col transform transition-transform group-hover:translate-x-1">
+                        <span class="text-2xl font-black text-[#2A5A8E] leading-none tracking-tight drop-shadow-sm">Pitchin<span class="text-[#3ECBCB]">180</span>Sec</span>
                         <span class="text-[10px] uppercase tracking-widest font-bold text-slate-400 group-hover:text-[#3ECBCB] transition-colors ml-0.5">By Unibazar</span>
                     </div>
                 </a>
@@ -144,19 +315,19 @@
                     <a href="partners.html" class="text-slate-600 hover:text-[#2A5A8E] transition-colors nav-link">Our Partners</a>
                     <a href="event.html" class="text-slate-600 hover:text-[#2A5A8E] transition-colors nav-link">Next Event</a>
                     <a href="impact.html" class="text-slate-600 hover:text-[#2A5A8E] transition-colors nav-link">Impact</a>
-                    <a href="register.html" class="px-7 py-3 gradient-bg text-white rounded-full font-bold shadow-lg shadow-[#3ECBCB]/30 hover:shadow-[#2A5A8E]/40 transition-all transform hover:-translate-y-0.5 hover:brightness-110 flex items-center gap-2">
+                    <a href="register.html" class="px-7 py-2.5 btn-3d text-white rounded-full font-bold flex items-center gap-2 transform hover:-translate-y-1">
                         Apply Now <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
                     </a>
                 </div>
 
                 <!-- Mobile Toggle -->
-                <button id="menu-btn" class="md:hidden relative z-50 p-2 text-slate-700 focus:outline-none bg-slate-50 rounded-lg">
+                <button id="menu-btn" class="md:hidden relative z-50 p-2 text-slate-700 focus:outline-none bg-slate-50 rounded-lg shadow-sm active:shadow-inner border border-slate-200">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
             </div>
 
             <!-- Mobile Menu Dropdown -->
-            <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 text-xl font-bold md:hidden">
+            <div id="mobile-menu" class="fixed inset-0 bg-white/98 backdrop-blur-2xl z-40 transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8 text-xl font-bold md:hidden">
                 <a href="index.html" class="text-[#2A5A8E]" onclick="toggleMenu()">Home</a>
                 <a href="partners.html" class="text-slate-600 hover:text-[#2A5A8E]" onclick="toggleMenu()">Our Partners</a>
                 <a href="event.html" class="text-slate-600 hover:text-[#2A5A8E]" onclick="toggleMenu()">Next Event</a>
@@ -167,55 +338,66 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-32 pb-32 md:pt-48 md:pb-48 overflow-hidden flex items-center min-h-screen slant-bottom bg-white/50">
-        <!-- Background Elements -->
-        <div class="absolute inset-0 z-0 hero-glow"></div>
-        <div class="absolute top-20 right-0 w-72 h-72 md:w-96 md:h-96 bg-[#3ECBCB]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 animate-pulse"></div>
-        <div class="absolute bottom-0 left-0 w-64 h-64 md:w-72 md:h-72 bg-[#2A5A8E]/10 rounded-full blur-3xl translate-y-1/3 -translate-x-1/3"></div>
+    <section class="relative pt-32 pb-32 md:pt-48 md:pb-48 overflow-visible flex items-center min-h-screen slant-bottom perspective-container">
+        <!-- Interactive Canvas Background -->
+        <canvas id="hero-canvas"></canvas>
+        
+        <!-- 3D Lighting/Glow Effects -->
+        <div class="absolute inset-0 z-0 bg-gradient-to-b from-blue-50/50 to-white/20 pointer-events-none"></div>
+        <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-gradient-to-br from-[#3ECBCB] to-transparent rounded-full blur-[100px] opacity-20 animate-float pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#2A5A8E] to-transparent rounded-full blur-[100px] opacity-15 animate-float pointer-events-none" style="animation-delay: -4s;"></div>
 
         <div class="container mx-auto px-6 relative z-10 text-center">
-            <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-[#3ECBCB]/20 text-[#2A5A8E] text-xs font-bold uppercase tracking-widest mb-8 md:mb-12 shadow-lg shadow-slate-200/50 animate-float backdrop-blur-sm">
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/70 border border-white/60 backdrop-blur-xl text-[#2A5A8E] text-xs font-bold uppercase tracking-widest mb-8 md:mb-12 shadow-[0_10px_30px_rgba(42,90,142,0.1)] animate-float hover:scale-105 transition-transform cursor-default">
                 <span class="relative flex h-2.5 w-2.5">
                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3ECBCB] opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#3ECBCB]"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#3ECBCB] shadow-[0_0_10px_#3ECBCB]"></span>
                 </span>
                 Next Edition is Comming Soon
             </div>
             
-            <h1 class="text-5xl md:text-8xl font-black text-slate-900 leading-[1.1] md:leading-[0.95] mb-8 tracking-tighter reveal active drop-shadow-sm">
+            <h1 class="text-5xl md:text-8xl font-black text-slate-900 leading-[1.1] md:leading-[0.95] mb-8 tracking-tighter reveal active drop-shadow-2xl" style="transform: translateZ(40px);">
                 180 Seconds to <br><span class="gradient-text">Connect & Conquer</span>
             </h1>
             
-            <p class="text-lg md:text-2xl text-slate-600 max-w-3xl mx-auto mb-16 font-medium leading-relaxed reveal active" style="transition-delay: 100ms;">
+            <p class="text-lg md:text-2xl text-slate-600 max-w-3xl mx-auto mb-16 font-medium leading-relaxed reveal active" style="transition-delay: 100ms; text-shadow: 0 2px 0 rgba(255,255,255,0.8);">
                 The most intense pitchathon for Indian founders. <br class="hidden md:block"> No slides. No jargon. Just you, your vision, and the clock.
             </p>
             
-            <!-- Timer Cards -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-3xl mx-auto mb-10 reveal active" style="transition-delay: 200ms;">
-                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-[#2A5A8E]">
-                    <span id="days" class="text-4xl md:text-5xl font-black block text-slate-800 tracking-tight">00</span>
-                    <span class="text-[10px] md:text-xs uppercase text-slate-400 font-bold tracking-widest mt-1 block">Days</span>
+            <!-- 3D Timer Cards -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-4xl mx-auto mb-10 reveal active" style="transition-delay: 200ms;">
+                <div class="glass-card p-6 border-t-4 border-t-[#2A5A8E] tilt-card group cursor-pointer">
+                    <div class="glass-card-content">
+                        <span id="days" class="text-4xl md:text-6xl font-black block text-slate-800 tracking-tight drop-shadow-sm group-hover:text-[#2A5A8E] transition-colors">00</span>
+                        <span class="text-[10px] md:text-xs uppercase text-slate-400 font-bold tracking-widest mt-1 block">Days</span>
+                    </div>
                 </div>
-                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-[#2A5A8E]">
-                    <span id="hours" class="text-4xl md:text-5xl font-black block text-slate-800 tracking-tight">00</span>
-                    <span class="text-[10px] md:text-xs uppercase text-slate-400 font-bold tracking-widest mt-1 block">Hours</span>
+                <div class="glass-card p-6 border-t-4 border-t-[#2A5A8E] tilt-card group cursor-pointer">
+                    <div class="glass-card-content">
+                        <span id="hours" class="text-4xl md:text-6xl font-black block text-slate-800 tracking-tight drop-shadow-sm group-hover:text-[#2A5A8E] transition-colors">00</span>
+                        <span class="text-[10px] md:text-xs uppercase text-slate-400 font-bold tracking-widest mt-1 block">Hours</span>
+                    </div>
                 </div>
-                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-[#3ECBCB]">
-                    <span id="mins" class="text-4xl md:text-5xl font-black block text-slate-800 tracking-tight">00</span>
-                    <span class="text-[10px] md:text-xs uppercase text-slate-400 font-bold tracking-widest mt-1 block">Mins</span>
+                <div class="glass-card p-6 border-t-4 border-t-[#3ECBCB] tilt-card group cursor-pointer">
+                    <div class="glass-card-content">
+                        <span id="mins" class="text-4xl md:text-6xl font-black block text-slate-800 tracking-tight drop-shadow-sm group-hover:text-[#3ECBCB] transition-colors">00</span>
+                        <span class="text-[10px] md:text-xs uppercase text-slate-400 font-bold tracking-widest mt-1 block">Mins</span>
+                    </div>
                 </div>
-                <div class="glass-card p-6 rounded-2xl border-t-4 border-t-[#3ECBCB]">
-                    <span id="secs" class="text-4xl md:text-5xl font-black block text-[#3ECBCB] tracking-tight">00</span>
-                    <span class="text-[10px] md:text-xs uppercase text-slate-400 font-bold tracking-widest mt-1 block">Secs</span>
+                <div class="glass-card p-6 border-t-4 border-t-[#3ECBCB] tilt-card group cursor-pointer">
+                    <div class="glass-card-content">
+                        <span id="secs" class="text-4xl md:text-6xl font-black block text-[#3ECBCB] tracking-tight drop-shadow-sm group-hover:scale-110 transition-transform inline-block">00</span>
+                        <span class="text-[10px] md:text-xs uppercase text-slate-400 font-bold tracking-widest mt-1 block">Secs</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- NEW MAP SECTION: Side by Side -->
+            <!-- NEW MAP SECTION: Side by Side with 3D Float -->
             <div class="w-full max-w-6xl mx-auto my-16 md:my-24 reveal active flex flex-col md:flex-row items-center gap-10 md:gap-16" style="transition-delay: 250ms;">
                 
                 <!-- Text Content Side -->
                 <div class="w-full md:w-1/2 text-center md:text-left space-y-6 order-2 md:order-1">
-                    <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight">
+                    <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight drop-shadow-sm">
                         Aim to connect <br>
                         <span class="gradient-text">these cities.</span>
                     </h2>
@@ -223,24 +405,24 @@
                         Bridging the gap between emerging innovation hubs and established capital corridors. We are creating a seamless network where geography is no longer a barrier to funding.
                     </p>
                     <div class="flex items-center gap-4 justify-center md:justify-start pt-2">
-                         <div class="h-1.5 w-24 gradient-bg rounded-full"></div>
+                         <div class="h-2 w-24 gradient-bg rounded-full shadow-inner"></div>
                     </div>
                 </div>
 
                 <!-- Map Image Side -->
-                <div class="w-full md:w-1/2 h-[300px] md:h-[500px] relative flex items-center justify-center order-1 md:order-2">
-                    <img src="map.png" alt="India Map Location" class="w-full h-full object-contain drop-shadow-2xl opacity-90 hover:scale-105 transition-transform duration-500">
+                <div class="w-full md:w-1/2 h-[300px] md:h-[500px] relative flex items-center justify-center order-1 md:order-2 perspective-1000">
+                    <img src="map.png" alt="India Map Location" class="w-full h-full object-contain drop-shadow-[0_30px_60px_rgba(0,0,0,0.25)] hover:scale-110 transition-transform duration-700 animate-float" style="filter: contrast(1.1);">
                 </div>
                 
             </div>
 
             <!-- Action Buttons (Below Map) -->
-            <div class="flex flex-col sm:flex-row justify-center gap-5 reveal active" style="transition-delay: 300ms;">
-                <a href="register.html" class="w-full sm:w-auto px-10 py-4 gradient-bg text-white rounded-full font-bold text-lg shadow-xl shadow-[#2A5A8E]/30 hover:scale-105 transition-all flex items-center justify-center gap-3 group">
+            <div class="flex flex-col sm:flex-row justify-center gap-5 reveal active pb-10" style="transition-delay: 300ms;">
+                <a href="register.html" class="btn-3d w-full sm:w-auto px-10 py-5 text-white rounded-full font-bold text-lg flex items-center justify-center gap-3 group">
                     Start Application 
-                    <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                    <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
                 </a>
-                <a href="impact.html" class="w-full sm:w-auto px-10 py-4 bg-white border border-slate-200 text-slate-700 rounded-full font-bold text-lg hover:bg-slate-50 hover:border-[#3ECBCB] transition-all flex items-center justify-center gap-2">
+                <a href="impact.html" class="w-full sm:w-auto px-10 py-5 bg-white border border-slate-200 text-slate-700 rounded-full font-bold text-lg hover:shadow-[0_15px_30px_rgba(42,90,142,0.15)] hover:border-[#3ECBCB] hover:text-[#2A5A8E] transition-all flex items-center justify-center gap-2 relative top-0 hover:-top-1 active:top-0">
                     Explore Impact
                 </a>
             </div>
@@ -248,30 +430,32 @@
     </section>
 
     <!-- SECTION 1: The Philosophy (Slanted Top) -->
-    <section class="py-20 md:py-32 bg-white relative slant-top">
+    <section class="py-20 md:py-32 bg-white relative slant-top shadow-[0_-30px_60px_rgba(0,0,0,0.08)] z-10">
         <div class="container mx-auto px-6 pt-12">
             <div class="text-center max-w-3xl mx-auto mb-16 md:mb-24 reveal">
                 <span class="text-[#3ECBCB] font-bold uppercase tracking-widest text-sm mb-3 block">The Core Philosophy</span>
-                <h2 class="text-3xl md:text-5xl font-black text-[#2A5A8E] tracking-tight">Why The 180-Second Rule?</h2>
-                <div class="w-24 h-1.5 gradient-bg mx-auto mt-6 rounded-full"></div>
+                <h2 class="text-3xl md:text-5xl font-black text-[#2A5A8E] tracking-tight drop-shadow-sm">Why The Pitchin-180-Second ?</h2>
+                <div class="w-24 h-2 gradient-bg mx-auto mt-6 rounded-full shadow-lg"></div>
             </div>
 
             <!-- Feature 1 -->
             <div class="flex flex-col md:flex-row items-center gap-10 md:gap-20 mb-20 md:mb-28 reveal">
-                <div class="w-full md:w-1/2 relative group">
-                    <div class="absolute -inset-4 bg-[#3ECBCB]/20 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="glass-card p-10 rounded-[2rem] relative z-10">
-                        <div class="w-16 h-16 bg-[#2A5A8E] rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl shadow-[#2A5A8E]/20">
-                            <i data-lucide="filter" class="w-8 h-8"></i>
+                <div class="w-full md:w-1/2 relative group perspective-1000">
+                    <div class="absolute -inset-6 bg-[#3ECBCB]/20 rounded-[3rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="glass-card p-10 rounded-[2.5rem] relative z-10 tilt-card">
+                        <div class="glass-card-content">
+                            <div class="glass-icon w-20 h-20 bg-gradient-to-br from-[#2A5A8E] to-blue-700 rounded-2xl flex items-center justify-center text-white mb-6 shadow-2xl shadow-[#2A5A8E]/30 transform group-hover:scale-110 group-hover:rotate-6 transition-all duration-300">
+                                <i data-lucide="filter" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 group-hover:text-[#2A5A8E] transition-colors">Why Founders Choose Pitchin-180-Seconds</h3>
+                            <p class="text-base md:text-lg text-slate-600 leading-relaxed">
+                               Pitchin-180-Seconds is built to give startup founders direct access to active investors, funded incubators, mentors, and ecosystem leaders — all on one platform. The 180-second pitch format helps founders communicate their idea with clarity and confidence, without long decks or complex jargon.Founders from Tier-1 to Tier-3 cities get equal visibility, meaningful feedback, and strong networking opportunities — completely free of cost.
+                            </p>
                         </div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Why Founders Choose Pitchin-180-Seconds</h3>
-                        <p class="text-base md:text-lg text-slate-600 leading-relaxed">
-                           Pitchin-180-Seconds is built to give startup founders direct access to active investors, funded incubators, mentors, and ecosystem leaders — all on one platform. The 180-second pitch format helps founders communicate their idea with clarity and confidence, without long decks or complex jargon.Founders from Tier-1 to Tier-3 cities get equal visibility, meaningful feedback, and strong networking opportunities — completely free of cost.
-                        </p>
                     </div>
                 </div>
                 <div class="w-full md:w-1/2 pl-0 md:pl-6 text-center md:text-left">
-                    <h4 class="text-6xl md:text-8xl font-black text-slate-100 mb-2 md:mb-4 select-none">01</h4>
+                    <h4 class="text-6xl md:text-9xl font-black text-slate-100 mb-2 md:mb-4 select-none text-3d" style="color: #f1f5f9;">01</h4>
                     <h3 class="text-2xl font-bold text-[#2A5A8E] mb-3 md:mb-4">Clarity is King</h3>
                     <p class="text-slate-500 text-lg">We force you to strip away the jargon and focus intensely on the core value proposition. This is about respecting the investor's intelligence.</p>
                 </div>
@@ -279,20 +463,22 @@
 
             <!-- Feature 2 -->
             <div class="flex flex-col md:flex-row-reverse items-center gap-10 md:gap-20 mb-20 md:mb-28 reveal">
-                <div class="w-full md:w-1/2 relative group">
-                    <div class="absolute -inset-4 bg-[#2A5A8E]/20 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="glass-card p-10 rounded-[2rem] relative z-10">
-                        <div class="w-16 h-16 bg-[#3ECBCB] rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl shadow-[#3ECBCB]/20">
-                            <i data-lucide="clock" class="w-8 h-8"></i>
+                <div class="w-full md:w-1/2 relative group perspective-1000">
+                    <div class="absolute -inset-6 bg-[#2A5A8E]/20 rounded-[3rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="glass-card p-10 rounded-[2.5rem] relative z-10 tilt-card">
+                        <div class="glass-card-content">
+                            <div class="glass-icon w-20 h-20 bg-gradient-to-br from-[#3ECBCB] to-teal-400 rounded-2xl flex items-center justify-center text-white mb-6 shadow-2xl shadow-[#3ECBCB]/30 transform group-hover:scale-110 group-hover:-rotate-6 transition-all duration-300">
+                                <i data-lucide="clock" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 group-hover:text-[#3ECBCB] transition-colors">Why Smart Investors Join Pitchin-180-Seconds</h3>
+                            <p class="text-base md:text-lg text-slate-600 leading-relaxed">
+                               Investors get access to curated startups that are trained to explain their business clearly in just three minutes. This format saves time and highlights the founder’s thinking, conviction, and execution ability — faster than traditional pitches. It also opens doors to high-potential startups from emerging cities, before they become widely visible in the ecosystem.
+                            </p>
                         </div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">Why Smart Investors Join Pitchin-180-Seconds</h3>
-                        <p class="text-base md:text-lg text-slate-600 leading-relaxed">
-                           Investors get access to curated startups that are trained to explain their business clearly in just three minutes. This format saves time and highlights the founder’s thinking, conviction, and execution ability — faster than traditional pitches. It also opens doors to high-potential startups from emerging cities, before they become widely visible in the ecosystem.
-                        </p>
                     </div>
                 </div>
                 <div class="w-full md:w-1/2 pr-0 md:pr-6 text-center md:text-right">
-                    <h4 class="text-6xl md:text-8xl font-black text-slate-100 mb-2 md:mb-4 select-none">02</h4>
+                    <h4 class="text-6xl md:text-9xl font-black text-slate-100 mb-2 md:mb-4 select-none text-3d" style="color: #f1f5f9;">02</h4>
                     <h3 class="text-2xl font-bold text-[#2A5A8E] mb-3 md:mb-4">Why Companies Sponsor Pitchin-180-Seconds</h3>
                     <p class="text-slate-500 text-lg">Sponsoring Pitchin-180-Seconds places your brand at the center of India’s startup and innovation movement. Companies gain visibility among founders, investors, incubators, and decision-makers — both on-ground and digitally. Sponsors also get early access to partnerships, pilots, and emerging talent, while supporting meaningful entrepreneurship.</p>
                 </div>
@@ -300,20 +486,22 @@
 
             <!-- Feature 3 -->
             <div class="flex flex-col md:flex-row items-center gap-10 md:gap-20 reveal">
-                <div class="w-full md:w-1/2 relative group">
-                    <div class="absolute -inset-4 bg-purple-500/10 rounded-[2rem] blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div class="glass-card p-10 rounded-[2rem] relative z-10">
-                        <div class="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center text-white mb-6 shadow-xl">
-                            <i data-lucide="flame" class="w-8 h-8"></i>
+                <div class="w-full md:w-1/2 relative group perspective-1000">
+                    <div class="absolute -inset-6 bg-purple-500/10 rounded-[3rem] blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="glass-card p-10 rounded-[2.5rem] relative z-10 tilt-card">
+                        <div class="glass-card-content">
+                            <div class="glass-icon w-20 h-20 bg-gradient-to-br from-slate-700 to-slate-900 rounded-2xl flex items-center justify-center text-white mb-6 shadow-2xl shadow-slate-800/40 transform group-hover:scale-110 transition-all duration-300">
+                                <i data-lucide="flame" class="w-10 h-10"></i>
+                            </div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">A Founder's Crucible</h3>
+                            <p class="text-base md:text-lg text-slate-600 leading-relaxed">
+                                No lengthy backstories. What is the pain point? How do you solve it? How do you make money? This discipline transforms 'nice ideas' into fundable businesses.
+                            </p>
                         </div>
-                        <h3 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4">A Founder's Crucible</h3>
-                        <p class="text-base md:text-lg text-slate-600 leading-relaxed">
-                            No lengthy backstories. What is the pain point? How do you solve it? How do you make money? This discipline transforms 'nice ideas' into fundable businesses.
-                        </p>
                     </div>
                 </div>
                 <div class="w-full md:w-1/2 pl-0 md:pl-6 text-center md:text-left">
-                    <h4 class="text-6xl md:text-8xl font-black text-slate-100 mb-2 md:mb-4 select-none">03</h4>
+                    <h4 class="text-6xl md:text-9xl font-black text-slate-100 mb-2 md:mb-4 select-none text-3d" style="color: #f1f5f9;">03</h4>
                     <h3 class="text-2xl font-bold text-[#2A5A8E] mb-3 md:mb-4">Substance Over Style</h3>
                     <p class="text-slate-500 text-lg">Mastering the 180-second pitch means you can capture interest anywhere—from a coffee shop to a boardroom.</p>
                 </div>
@@ -322,43 +510,43 @@
     </section>
 
     <!-- SECTION 2: Timeline -->
-    <section class="py-24 bg-[#F8FAFC] border-y border-slate-200">
-        <div class="container mx-auto px-6">
+    <section class="py-24 bg-[#F8FAFC] relative">
+        <div class="container mx-auto px-6 relative z-10">
             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">How It Unfolds</h2>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight drop-shadow-sm">How It Unfolds</h2>
                 <p class="text-slate-500 mt-3 text-lg">The path to funding is simple, but not easy.</p>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-8 reveal">
                 <!-- Step 1 -->
-                <div class="relative pl-8 md:pl-0 md:pt-8 group border-l-2 md:border-l-0 md:border-t-2 border-slate-300 md:text-center pb-8 md:pb-0">
-                    <div class="absolute top-0 left-[-5px] md:top-[-5px] md:left-[45%] w-2.5 h-2.5 rounded-full bg-[#2A5A8E] ring-4 ring-[#F8FAFC] z-10"></div>
-                    <span class="text-6xl font-black text-slate-200/50 absolute top-4 right-4 md:right-1/2 md:translate-x-1/2 md:-z-10 group-hover:text-[#2A5A8E]/10 transition-colors">01</span>
-                    <h4 class="text-xl font-bold text-[#2A5A8E] mb-3">Application</h4>
+                <div class="relative pl-8 md:pl-0 md:pt-8 group border-l-4 md:border-l-0 md:border-t-4 border-slate-200 md:text-center pb-8 md:pb-0 transition-colors hover:border-[#2A5A8E]">
+                    <div class="absolute top-0 left-[-11px] md:top-[-11px] md:left-[45%] w-5 h-5 rounded-full bg-white border-4 border-[#2A5A8E] shadow-[0_0_15px_#2A5A8E] z-10 scale-100 group-hover:scale-125 transition-transform duration-300"></div>
+                    <span class="text-7xl font-black text-slate-200/50 absolute top-4 right-4 md:right-1/2 md:translate-x-1/2 md:-z-10 group-hover:text-[#2A5A8E]/10 transition-colors group-hover:scale-125 duration-500">01</span>
+                    <h4 class="text-xl font-bold text-[#2A5A8E] mb-3 group-hover:translate-y-[-5px] transition-transform">Application</h4>
                     <p class="text-sm text-slate-500 leading-relaxed">Submit your deck and a 60-second video intro. Our internal team screens for viability.</p>
                 </div>
                 
                 <!-- Step 2 -->
-                <div class="relative pl-8 md:pl-0 md:pt-8 group border-l-2 md:border-l-0 md:border-t-2 border-slate-300 md:text-center pb-8 md:pb-0">
-                    <div class="absolute top-0 left-[-5px] md:top-[-5px] md:left-[45%] w-2.5 h-2.5 rounded-full bg-[#3ECBCB] ring-4 ring-[#F8FAFC] z-10"></div>
-                    <span class="text-6xl font-black text-slate-200/50 absolute top-4 right-4 md:right-1/2 md:translate-x-1/2 md:-z-10 group-hover:text-[#3ECBCB]/10 transition-colors">02</span>
-                    <h4 class="text-xl font-bold text-[#2A5A8E] mb-3">Selection</h4>
+                <div class="relative pl-8 md:pl-0 md:pt-8 group border-l-4 md:border-l-0 md:border-t-4 border-slate-200 md:text-center pb-8 md:pb-0 transition-colors hover:border-[#3ECBCB]">
+                    <div class="absolute top-0 left-[-11px] md:top-[-11px] md:left-[45%] w-5 h-5 rounded-full bg-white border-4 border-[#3ECBCB] shadow-[0_0_15px_#3ECBCB] z-10 scale-100 group-hover:scale-125 transition-transform duration-300"></div>
+                    <span class="text-7xl font-black text-slate-200/50 absolute top-4 right-4 md:right-1/2 md:translate-x-1/2 md:-z-10 group-hover:text-[#3ECBCB]/10 transition-colors group-hover:scale-125 duration-500">02</span>
+                    <h4 class="text-xl font-bold text-[#2A5A8E] mb-3 group-hover:translate-y-[-5px] transition-transform">Selection</h4>
                     <p class="text-sm text-slate-500 leading-relaxed">Top 20 startups are selected and assigned mentors for a 1-week intensive pitch polish.</p>
                 </div>
 
                 <!-- Step 3 -->
-                <div class="relative pl-8 md:pl-0 md:pt-8 group border-l-2 md:border-l-0 md:border-t-2 border-slate-300 md:text-center pb-8 md:pb-0">
-                    <div class="absolute top-0 left-[-5px] md:top-[-5px] md:left-[45%] w-2.5 h-2.5 rounded-full bg-[#2A5A8E] ring-4 ring-[#F8FAFC] z-10"></div>
-                    <span class="text-6xl font-black text-slate-200/50 absolute top-4 right-4 md:right-1/2 md:translate-x-1/2 md:-z-10 group-hover:text-[#2A5A8E]/10 transition-colors">03</span>
-                    <h4 class="text-xl font-bold text-[#2A5A8E] mb-3">The Event</h4>
+                <div class="relative pl-8 md:pl-0 md:pt-8 group border-l-4 md:border-l-0 md:border-t-4 border-slate-200 md:text-center pb-8 md:pb-0 transition-colors hover:border-[#2A5A8E]">
+                    <div class="absolute top-0 left-[-11px] md:top-[-11px] md:left-[45%] w-5 h-5 rounded-full bg-white border-4 border-[#2A5A8E] shadow-[0_0_15px_#2A5A8E] z-10 scale-100 group-hover:scale-125 transition-transform duration-300"></div>
+                    <span class="text-7xl font-black text-slate-200/50 absolute top-4 right-4 md:right-1/2 md:translate-x-1/2 md:-z-10 group-hover:text-[#2A5A8E]/10 transition-colors group-hover:scale-125 duration-500">03</span>
+                    <h4 class="text-xl font-bold text-[#2A5A8E] mb-3 group-hover:translate-y-[-5px] transition-transform">The Event</h4>
                     <p class="text-sm text-slate-500 leading-relaxed">Live on stage. 180 seconds to pitch. 5 minutes of brutal Q&A from investors.</p>
                 </div>
 
                 <!-- Step 4 -->
-                <div class="relative pl-8 md:pl-0 md:pt-8 group border-l-2 md:border-l-0 md:border-t-2 border-gradient-to-r from-slate-300 to-transparent md:text-center pb-0">
-                    <div class="absolute top-0 left-[-5px] md:top-[-5px] md:left-[45%] w-2.5 h-2.5 rounded-full bg-[#3ECBCB] ring-4 ring-[#F8FAFC] z-10 animate-pulse"></div>
-                    <span class="text-6xl font-black text-slate-200/50 absolute top-4 right-4 md:right-1/2 md:translate-x-1/2 md:-z-10 group-hover:text-[#3ECBCB]/10 transition-colors">04</span>
-                    <h4 class="text-xl font-bold text-[#2A5A8E] mb-3">Funding</h4>
+                <div class="relative pl-8 md:pl-0 md:pt-8 group border-l-4 md:border-l-0 md:border-t-4 border-gradient-to-r from-slate-200 to-transparent md:text-center pb-0 transition-colors hover:border-[#3ECBCB]">
+                    <div class="absolute top-0 left-[-11px] md:top-[-11px] md:left-[45%] w-5 h-5 rounded-full bg-white border-4 border-[#3ECBCB] shadow-[0_0_15px_#3ECBCB] z-10 pulse-3d"></div>
+                    <span class="text-7xl font-black text-slate-200/50 absolute top-4 right-4 md:right-1/2 md:translate-x-1/2 md:-z-10 group-hover:text-[#3ECBCB]/10 transition-colors group-hover:scale-125 duration-500">04</span>
+                    <h4 class="text-xl font-bold text-[#2A5A8E] mb-3 group-hover:translate-y-[-5px] transition-transform">Funding</h4>
                     <p class="text-sm text-slate-500 leading-relaxed">Term sheets are often signed on the spot or in the exclusive networking dinner.</p>
                 </div>
             </div>
@@ -366,48 +554,48 @@
     </section>
 
     <!-- SECTION 3: Moments of Glory -->
-    <section class="py-20 md:py-32 bg-white reveal">
+    <section class="py-20 md:py-32 bg-white reveal relative z-20">
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
                 <div class="max-w-2xl">
                     <span class="text-[#3ECBCB] font-bold uppercase tracking-widest text-sm mb-2 block">Our Legacy</span>
-                    <h2 class="text-3xl md:text-5xl font-black text-[#2A5A8E] tracking-tight">Moments of Glory</h2>
+                    <h2 class="text-3xl md:text-5xl font-black text-[#2A5A8E] tracking-tight drop-shadow-sm">Moments of Glory</h2>
                     <p class="text-slate-500 mt-4 text-base md:text-lg">Snapshots from our previous chapters where founders met their future investors.</p>
                 </div>
-                <a href="impact.html" class="group flex items-center gap-3 px-6 py-3 bg-slate-50 rounded-full text-[#2A5A8E] font-bold hover:bg-[#2A5A8E] hover:text-white transition-all shadow-sm border border-slate-100">
+                <a href="impact.html" class="group flex items-center gap-3 px-6 py-3 bg-white rounded-full text-[#2A5A8E] font-bold hover:bg-[#2A5A8E] hover:text-white transition-all shadow-[0_5px_15px_rgba(0,0,0,0.1)] border border-slate-100 hover:shadow-[0_10px_25px_rgba(42,90,142,0.3)]">
                     View Impact Report <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
                 </a>
             </div>
 
-            <!-- Gallery Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[500px]">
+            <!-- Gallery Grid with 3D Images -->
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto md:h-[500px] img-3d-wrapper">
                 
                 <!-- Main Featured Card (Spans 8 columns) -->
-                <div class="col-span-1 md:col-span-8 h-80 md:h-full relative group overflow-hidden rounded-3xl shadow-xl">
+                <div class="col-span-1 md:col-span-8 h-80 md:h-full relative group overflow-hidden rounded-[2rem] shadow-2xl img-3d cursor-pointer">
                     <img src="iilm1.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Main Event">
-                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/40 to-transparent opacity-90"></div>
-                    <div class="absolute bottom-0 left-0 p-6 md:p-12">
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/40 to-transparent opacity-90 transition-opacity group-hover:opacity-100"></div>
+                    <div class="absolute bottom-0 left-0 p-6 md:p-12 transform translate-z-10 group-hover:translate-y-[-10px] transition-transform duration-500">
                         <span class="px-3 py-1 bg-[#3ECBCB] text-xs font-bold uppercase tracking-wider text-white rounded-md mb-3 inline-block shadow-lg">Flagship</span>
-                        <h3 class="text-2xl md:text-4xl font-bold text-white mb-2">IILM Gurgaon Chapter</h3>
-                        <p class="text-slate-200 text-sm md:text-base max-w-lg">Where it all began. 200+ attendees witnessing the birth of 5 funded startups in a single evening.</p>
+                        <h3 class="text-2xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">IILM Gurgaon Chapter</h3>
+                        <p class="text-slate-200 text-sm md:text-base max-w-lg drop-shadow-md">Where it all began. 200+ attendees witnessing the birth of 5 funded startups in a single evening.</p>
                     </div>
                 </div>
 
                 <!-- Side Cards (Span 4 columns, stacked) -->
-                <div class="col-span-1 md:col-span-4 flex flex-col gap-6 h-full">
-                    <div class="h-64 md:h-1/2 relative group overflow-hidden rounded-3xl shadow-xl">
+                <div class="col-span-1 md:col-span-4 flex flex-col gap-6 h-full img-3d-wrapper">
+                    <div class="h-64 md:h-1/2 relative group overflow-hidden rounded-[2rem] shadow-xl img-3d cursor-pointer">
                         <img src="iilm2.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Mixer">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-transparent opacity-80"></div>
-                        <div class="absolute bottom-0 left-0 p-6">
-                            <h4 class="text-xl font-bold text-white">Founders Mixer</h4>
+                        <div class="absolute bottom-0 left-0 p-6 transform translate-z-10 group-hover:translate-x-2 transition-transform">
+                            <h4 class="text-xl font-bold text-white drop-shadow-md">Founders Mixer</h4>
                             <p class="text-xs text-slate-300 uppercase font-bold tracking-wide mt-1">Delhi, 2024</p>
                         </div>
                     </div>
-                    <div class="h-64 md:h-1/2 relative group overflow-hidden rounded-3xl shadow-xl">
+                    <div class="h-64 md:h-1/2 relative group overflow-hidden rounded-[2rem] shadow-xl img-3d cursor-pointer">
                         <img src="iilm3.jpeg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Finale">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] to-transparent opacity-80"></div>
-                        <div class="absolute bottom-0 left-0 p-6">
-                            <h4 class="text-xl font-bold text-white">The Grand Finale</h4>
+                        <div class="absolute bottom-0 left-0 p-6 transform translate-z-10 group-hover:translate-x-2 transition-transform">
+                            <h4 class="text-xl font-bold text-white drop-shadow-md">The Grand Finale</h4>
                             <p class="text-xs text-slate-300 uppercase font-bold tracking-wide mt-1">High Stakes Pitch</p>
                         </div>
                     </div>
@@ -420,85 +608,92 @@
     <section class="py-20 md:py-32 bg-[#F8FAFC] reveal">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <h2 class="text-3xl font-black text-[#2A5A8E] mb-4">Backed by the Ecosystem</h2>
-                <div class="w-16 h-1 bg-[#2A5A8E]/20 mx-auto rounded-full"></div>
+                <h2 class="text-3xl font-black text-[#2A5A8E] mb-4 drop-shadow-sm">Backed by the Ecosystem</h2>
+                <div class="w-16 h-1.5 bg-[#2A5A8E]/20 mx-auto rounded-full shadow-inner"></div>
             </div>
 
             <!-- Partners Grid -->
-            <!-- Image Replacements as Requested -->
             <div class="flex flex-wrap justify-center gap-10 md:gap-20">
                 <div class="group text-center w-24 md:w-auto">
-                    <div class="w-20 h-20 md:w-24 md:h-24 bg-white rounded-3xl shadow-sm border border-slate-100 flex items-center justify-center mb-3 mx-auto transition-all cursor-pointer">
+                    <div class="w-20 h-20 md:w-24 md:h-24 partner-box flex items-center justify-center mb-4 mx-auto cursor-pointer relative z-10">
                         <img src="unibazar.jpg" alt="Unibazar" class="partner-img">
                     </div>
-                    <span class="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-wide group-hover:text-[#2A5A8E]">Unibazar</span>
+                    <span class="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-wide group-hover:text-[#2A5A8E] transition-colors">Unibazar</span>
                 </div>
                 
                 <div class="group text-center w-24 md:w-auto">
-                    <div class="w-20 h-20 md:w-24 md:h-24 bg-white rounded-3xl shadow-sm border border-slate-100 flex items-center justify-center mb-3 mx-auto transition-all cursor-pointer">
+                    <div class="w-20 h-20 md:w-24 md:h-24 partner-box flex items-center justify-center mb-4 mx-auto cursor-pointer relative z-10">
                          <img src="partner2.png" alt="Titan Capital" class="partner-img">
                     </div>
-                    <span class="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-wide group-hover:text-[#2A5A8E]">Titan Capital</span>
+                    <span class="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-wide group-hover:text-[#2A5A8E] transition-colors">Titan Capital</span>
                 </div>
 
                 <div class="group text-center w-24 md:w-auto">
-                    <div class="w-20 h-20 md:w-24 md:h-24 bg-white rounded-3xl shadow-sm border border-slate-100 flex items-center justify-center mb-3 mx-auto transition-all cursor-pointer">
+                    <div class="w-20 h-20 md:w-24 md:h-24 partner-box flex items-center justify-center mb-4 mx-auto cursor-pointer relative z-10">
                          <img src="partner3.png" alt="Angel India" class="partner-img">
                     </div>
-                    <span class="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-wide group-hover:text-[#2A5A8E]">Angel India</span>
+                    <span class="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-wide group-hover:text-[#2A5A8E] transition-colors">Angel India</span>
                 </div>
 
                 <div class="group text-center w-24 md:w-auto">
-                    <div class="w-20 h-20 md:w-24 md:h-24 bg-white rounded-3xl shadow-sm border border-slate-100 flex items-center justify-center mb-3 mx-auto transition-all cursor-pointer">
+                    <div class="w-20 h-20 md:w-24 md:h-24 partner-box flex items-center justify-center mb-4 mx-auto cursor-pointer relative z-10">
                          <img src="partner4.png" alt="WeWork Labs" class="partner-img">
                     </div>
-                    <span class="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-wide group-hover:text-[#2A5A8E]">WeWork Labs</span>
+                    <span class="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-wide group-hover:text-[#2A5A8E] transition-colors">WeWork Labs</span>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Call to Action Banner -->
-    <section class="py-12 bg-[#2A5A8E] relative overflow-hidden reveal">
+    <section class="py-20 bg-[#2A5A8E] relative overflow-hidden reveal perspective-container shadow-[0_-20px_50px_rgba(0,0,0,0.15)]">
         <div class="absolute inset-0">
              <svg class="absolute w-full h-full opacity-10" viewBox="0 0 100 100" preserveAspectRatio="none">
                 <path d="M0 100 C 20 0 50 0 100 100 Z" fill="white" />
             </svg>
         </div>
+        <!-- Decorative 3D Circles -->
+        <div class="absolute -top-32 -right-32 w-80 h-80 bg-[#3ECBCB] rounded-full blur-[80px] opacity-40 animate-float"></div>
+        <div class="absolute -bottom-32 -left-32 w-80 h-80 bg-[#3ECBCB] rounded-full blur-[80px] opacity-40 animate-float" style="animation-delay: 2s;"></div>
+
         <div class="container mx-auto px-6 relative z-10 text-center">
-            <h2 class="text-3xl md:text-5xl font-black text-white mb-6 md:mb-8 tracking-tight">Ready to face the clock?</h2>
-            <p class="text-blue-100 text-lg md:text-xl mb-10 max-w-2xl mx-auto">Slots are filling up fast for the Bhopal Edition. Don't let your idea remain just an idea.</p>
-            <a href="register.html" class="inline-block px-10 py-5 bg-white text-[#2A5A8E] font-black text-lg rounded-full shadow-2xl hover:bg-[#3ECBCB] hover:text-white transition-all transform hover:-translate-y-1">Apply as Startup</a>
+            <h2 class="text-3xl md:text-6xl font-black text-white mb-6 md:mb-8 tracking-tight drop-shadow-lg" style="text-shadow: 0 4px 0 #1a3c61;">Ready to face the clock?</h2>
+            <p class="text-blue-100 text-lg md:text-2xl mb-12 max-w-2xl mx-auto drop-shadow-md">Let's fill the form and get your dream come true.</p>
+            <a href="register.html" class="inline-block px-12 py-6 bg-white text-[#2A5A8E] font-black text-lg rounded-full shadow-[0_25px_50px_rgba(0,0,0,0.4)] hover:bg-[#3ECBCB] hover:text-white transition-all transform hover:-translate-y-2 hover:scale-105 active:scale-95 border border-white/30 backdrop-blur-sm relative overflow-hidden group">
+                <span class="relative z-10">Apply as Startup</span>
+                <div class="absolute inset-0 bg-white/20 transform -translate-x-full group-hover:translate-x-full transition-transform duration-500 skew-x-12"></div>
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#1e4066] py-8 text-white text-sm border-t border-white/10">
-        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+    <footer class="bg-[#1e4066] py-12 text-white text-sm border-t border-white/10 relative z-30 shadow-[0_-30px_60px_rgba(0,0,0,0.3)]">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"></div>
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10 mb-8 relative z-10">
             <div class="col-span-1 md:col-span-2">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center text-white font-bold text-lg">P</div>
-                    <span class="text-xl font-black text-white">Pitchin<span class="text-[#3ECBCB]">180</span>Sec</span>
+                <div class="flex items-center gap-3 mb-5">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-white/20 to-white/5 border border-white/10 flex items-center justify-center text-white font-bold text-2xl shadow-xl backdrop-blur-sm">P</div>
+                    <span class="text-2xl font-black text-white drop-shadow-md">Pitchin<span class="text-[#3ECBCB]">180</span>Sec</span>
                 </div>
-                <p class="text-blue-200/60 max-w-sm leading-relaxed mb-6 text-xs">
+                <p class="text-blue-200/70 max-w-sm leading-relaxed mb-8 text-xs font-medium">
                     Empowering the next generation of Indian startups from the heart of the country. We bridge the gap between Tier-2 innovation and Tier-1 capital.
                 </p>
-                <div class="flex gap-3">
-                    <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3ECBCB] transition-colors"><i data-lucide="twitter" class="w-4 h-4"></i></a>
-                    <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3ECBCB] transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i></a>
-                    <a href="#" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3ECBCB] transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3ECBCB] transition-all hover:scale-110 shadow-lg border border-white/5 group"><i data-lucide="twitter" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3ECBCB] transition-all hover:scale-110 shadow-lg border border-white/5 group"><i data-lucide="linkedin" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-[#3ECBCB] transition-all hover:scale-110 shadow-lg border border-white/5 group"><i data-lucide="instagram" class="w-4 h-4 group-hover:rotate-12 transition-transform"></i></a>
                 </div>
 
                 <!-- Contact Details -->
-                <div class="mt-6 pt-6 border-t border-white/5">
-                    <h5 class="text-white font-bold mb-3 text-xs uppercase tracking-wider">Contact Us</h5>
-                    <div class="flex flex-col gap-3">
-                        <a href="mailto:event@unibazar.in" class="flex items-center gap-3 text-blue-200/60 hover:text-[#3ECBCB] transition-colors group">
-                            <i data-lucide="mail" class="w-4 h-4"></i>
+                <div class="mt-8 pt-8 border-t border-white/10">
+                    <h5 class="text-white font-bold mb-4 text-xs uppercase tracking-wider text-[#3ECBCB]">Contact Us</h5>
+                    <div class="flex flex-col gap-4">
+                        <a href="mailto:event@unibazar.in" class="flex items-center gap-3 text-blue-200/60 hover:text-white transition-colors group">
+                            <i data-lucide="mail" class="w-4 h-4 group-hover:scale-110 group-hover:text-[#3ECBCB] transition-all"></i>
                             <span class="font-medium text-xs">event@unibazar.in</span>
                         </a>
-                        <a href="tel:+917477237960" class="flex items-center gap-3 text-blue-200/60 hover:text-[#3ECBCB] transition-colors group">
-                            <i data-lucide="phone" class="w-4 h-4"></i>
+                        <a href="tel:+917477237960" class="flex items-center gap-3 text-blue-200/60 hover:text-white transition-colors group">
+                            <i data-lucide="phone" class="w-4 h-4 group-hover:scale-110 group-hover:text-[#3ECBCB] transition-all"></i>
                             <span class="font-medium text-xs">+91 747 723 7960</span>
                         </a>
                     </div>
@@ -506,28 +701,28 @@
             </div>
             
             <!-- Compact Links Column -->
-            <div class="col-span-1 md:col-span-2 grid grid-cols-2 gap-4">
+            <div class="col-span-1 md:col-span-2 grid grid-cols-2 gap-8">
                 <div>
-                    <h4 class="font-bold text-white mb-4 text-sm">Platform</h4>
-                    <ul class="space-y-3 text-blue-200/60 text-xs">
-                        <li><a href="index.html" class="hover:text-[#3ECBCB] transition-colors">Home</a></li>
-                        <li><a href="event.html" class="hover:text-[#3ECBCB] transition-colors">Next Event</a></li>
-                        <li><a href="impact.html" class="hover:text-[#3ECBCB] transition-colors">Impact Report</a></li>
-                        <li><a href="partners.html" class="hover:text-[#3ECBCB] transition-colors">Our Partners</a></li>
+                    <h4 class="font-bold text-white mb-6 text-sm relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-1 after:bg-[#3ECBCB] after:rounded-full">Platform</h4>
+                    <ul class="space-y-4 text-blue-200/60 text-xs">
+                        <li><a href="index.html" class="hover:text-[#3ECBCB] transition-colors hover:translate-x-2 inline-block">Home</a></li>
+                        <li><a href="event.html" class="hover:text-[#3ECBCB] transition-colors hover:translate-x-2 inline-block">Next Event</a></li>
+                        <li><a href="impact.html" class="hover:text-[#3ECBCB] transition-colors hover:translate-x-2 inline-block">Impact Report</a></li>
+                        <li><a href="partners.html" class="hover:text-[#3ECBCB] transition-colors hover:translate-x-2 inline-block">Our Partners</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-white mb-4 text-sm">Legal</h4>
-                    <ul class="space-y-3 text-blue-200/60 text-xs">
-                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors">Privacy Policy</a></li>
-                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors">Terms of Service</a></li>
-                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors">Cookie Policy</a></li>
-                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors">Contact Support</a></li>
+                    <h4 class="font-bold text-white mb-6 text-sm relative inline-block after:content-[''] after:absolute after:-bottom-2 after:left-0 after:w-8 after:h-1 after:bg-[#3ECBCB] after:rounded-full">Legal</h4>
+                    <ul class="space-y-4 text-blue-200/60 text-xs">
+                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors hover:translate-x-2 inline-block">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors hover:translate-x-2 inline-block">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors hover:translate-x-2 inline-block">Cookie Policy</a></li>
+                        <li><a href="#" class="hover:text-[#3ECBCB] transition-colors hover:translate-x-2 inline-block">Contact Support</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="border-t border-white/5 pt-8 text-center text-blue-200/40 text-[10px]">
+        <div class="border-t border-white/5 pt-8 text-center text-blue-200/40 text-[10px] relative z-10">
             <p>&copy; 2026 Unibazar Tech. PVT LTD. All rights reserved. Built for Founders.</p>
         </div>
     </footer>
@@ -535,7 +730,7 @@
     <script>
         lucide.createIcons();
 
-        // Timer Logic
+        // Timer Logic (Preserved)
         const eventDate = new Date('2026-02-23T09:00:00').getTime();
         setInterval(() => {
             const now = new Date().getTime();
@@ -546,27 +741,12 @@
             document.getElementById('secs').innerText = String(Math.floor((d%(1000*60))/1000)).padStart(2,'0');
         }, 1000);
 
-        // Reveal on Scroll
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-
-        // Mobile Menu Toggle
+        // Mobile Menu Toggle (Preserved)
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         
         function toggleMenu() {
             mobileMenu.classList.toggle('translate-x-full');
-            // Prevent scrolling when menu is open
             if (!mobileMenu.classList.contains('translate-x-full')) {
                 document.body.style.overflow = 'hidden';
             } else {
@@ -575,6 +755,145 @@
         }
 
         menuBtn.addEventListener('click', toggleMenu);
+
+        // ----------------------------------------------------
+        // ENHANCED 3D TILT PHYSICS ENGINE (V2.0)
+        // ----------------------------------------------------
+        const cards = document.querySelectorAll('.tilt-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // CSS Variable for Glare Effect
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                // Rotation Logic
+                const rotateX = ((y - centerY) / centerY) * -12; // Slightly increased intensity
+                const rotateY = ((x - centerX) / centerX) * 12;
+                
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+            });
+        });
+
+        // ----------------------------------------------------
+        // HERO PARTICLE NETWORK SYSTEM
+        // ----------------------------------------------------
+        const canvas = document.getElementById('hero-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let width, height;
+
+        // Resize
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Particle Class
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+                // Theme colors for particles
+                this.color = Math.random() > 0.5 ? 'rgba(62, 203, 203,' : 'rgba(42, 90, 142,'; 
+            }
+
+            update(mouse) {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Mouse interaction (Repel)
+                const dx = mouse.x - this.x;
+                const dy = mouse.y - this.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < 150) {
+                    const forceDirectionX = dx / distance;
+                    const forceDirectionY = dy / distance;
+                    const force = (150 - distance) / 150;
+                    this.vx -= forceDirectionX * force * 0.5;
+                    this.vy -= forceDirectionY * force * 0.5;
+                }
+
+                // Bounds check
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color + '0.5)';
+                ctx.fill();
+            }
+        }
+
+        // Init Particles
+        for(let i = 0; i < 60; i++) particles.push(new Particle());
+
+        // Mouse Tracker
+        const mouse = { x: undefined, y: undefined };
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        // Animation Loop
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            
+            particles.forEach(p => {
+                p.update(mouse);
+                p.draw();
+                
+                // Draw connections
+                particles.forEach(q => {
+                    const dx = p.x - q.x;
+                    const dy = p.y - q.y;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(100, 116, 139, ${0.1 - dist/1500})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(q.x, q.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Reveal on Scroll (Enhanced with smoother threshold)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); // Trigger on load
     </script>
 </body>
 </html>

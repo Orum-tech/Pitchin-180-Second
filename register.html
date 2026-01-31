@@ -14,6 +14,10 @@
         /* Spinner Animation */
         .loader { border: 3px solid #f3f3f3; border-radius: 50%; border-top: 3px solid #3ECBCB; width: 20px; height: 20px; -webkit-animation: spin 1s linear infinite; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* Tab Transitions */
+        .tab-btn { transition: all 0.3s ease; }
+        .form-section { transition: opacity 0.3s ease; }
     </style>
 </head>
 <body class="text-slate-700 antialiased flex flex-col min-h-screen">
@@ -39,85 +43,126 @@
         <div class="container mx-auto px-6">
             <div class="grid lg:grid-cols-5 gap-16">
                 
-                <!-- Registration Form -->
+                <!-- Registration Form Area -->
                 <div class="lg:col-span-3">
-                    <div class="bg-white p-10 rounded-3xl shadow-2xl border border-slate-100 relative overflow-hidden">
+                    <div class="bg-white p-2 rounded-t-3xl border-x border-t border-slate-100 flex gap-2">
+                        <!-- Role Switcher Tabs -->
+                        <button onclick="switchRole('founder')" id="tab-founder" class="tab-btn flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 bg-[#2A5A8E] text-white">
+                            <i data-lucide="rocket" class="w-4 h-4"></i> Founder
+                        </button>
+                        <button onclick="switchRole('investor')" id="tab-investor" class="tab-btn flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 bg-slate-50 text-slate-500 hover:bg-slate-100">
+                            <i data-lucide="briefcase" class="w-4 h-4"></i> Investor
+                        </button>
+                        <button onclick="switchRole('sponsor')" id="tab-sponsor" class="tab-btn flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 bg-slate-50 text-slate-500 hover:bg-slate-100">
+                            <i data-lucide="heart-handshake" class="w-4 h-4"></i> Sponsor
+                        </button>
+                    </div>
+
+                    <div class="bg-white p-10 rounded-b-3xl rounded-tr-none shadow-2xl border border-slate-100 relative overflow-hidden">
                         
                         <!-- Success Message Overlay (Hidden by default) -->
                         <div id="successMessage" class="absolute inset-0 bg-white z-20 flex flex-col items-center justify-center text-center p-10 hidden">
                             <div class="w-20 h-20 bg-green-100 text-green-500 rounded-full flex items-center justify-center mb-6">
                                 <i data-lucide="check" class="w-10 h-10"></i>
                             </div>
-                            <h3 class="text-3xl font-black text-[#2A5A8E] mb-2">Application Received!</h3>
-                            <p class="text-slate-500 mb-8">Thanks for applying. We have sent the details to our team and will get back to you shortly.</p>
-                            <button onclick="location.reload()" class="px-8 py-3 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-slate-200 transition-colors">Submit Another</button>
+                            <h3 class="text-3xl font-black text-[#2A5A8E] mb-2">Registration Received!</h3>
+                            <p class="text-slate-500 mb-8">Thanks for registering. We have sent the details to our team and will get back to you shortly.</p>
+                            <button onclick="location.reload()" class="px-8 py-3 bg-slate-100 text-slate-600 font-bold rounded-xl hover:bg-slate-200 transition-colors">Register Another</button>
                         </div>
 
-                        <h2 class="text-3xl font-black text-[#2A5A8E] mb-2">Startup Application</h2>
-                        <p class="text-slate-500 mb-8">Selected startups will be invited to pitch physically in Bhopal. Please fill in the details below.</p>
+                        <!-- Dynamic Title -->
+                        <h2 id="formTitle" class="text-3xl font-black text-[#2A5A8E] mb-2">Startup Application</h2>
+                        <p id="formDesc" class="text-slate-500 mb-8">Selected startups will be invited to pitch physically in Bhopal. Please fill in the details below.</p>
                         
                         <form id="registrationForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
                             
-                            <!-- Hidden Subject Field for Formspree -->
+                            <!-- Hidden Fields -->
                             <input type="hidden" name="_subject" id="hiddenSubject" value="New Application via Website">
-                            
-                            <!-- This textarea will hold the formatted data -->
                             <textarea name="Formatted_Application_Data" id="hiddenFormattedData" class="hidden"></textarea>
-
-                            <!-- Basic Info -->
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Founder Name *</label>
-                                    <input type="text" id="founderName" name="Founder_Name" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Amit Sharma" required>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Startup Name *</label>
-                                    <input type="text" id="startupName" name="Startup_Name" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Unibazar" required>
-                                </div>
-                            </div>
                             
-                            <!-- Contact Info -->
+                            <!-- Current Active Role Tracking -->
+                            <input type="hidden" id="currentRole" value="founder">
+
+                            <!-- === COMMON FIELDS (Visible for all) === -->
                             <div class="grid md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Full Name *</label>
+                                    <input type="text" id="commonName" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Amit Sharma" required>
+                                </div>
                                 <div>
                                     <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Email Address *</label>
-                                    <input type="email" id="email" name="email" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="founder@startup.com" required>
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Phone Number *</label>
-                                    <input type="tel" id="phone" name="Phone" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="+91 98765 43210" required>
+                                    <input type="email" id="commonEmail" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="you@example.com" required>
                                 </div>
                             </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Phone Number *</label>
+                                <input type="tel" id="commonPhone" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="+91 98765 43210" required>
+                            </div>
 
-                            <!-- Business Details -->
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Current Stage *</label>
-                                    <div class="relative">
-                                        <select id="stage" name="Stage" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus appearance-none">
-                                            <option>Idea Stage (Concept)</option>
-                                            <option>MVP (Prototype Ready)</option>
-                                            <option>Early Traction (Pre-Revenue)</option>
-                                            <option>Revenue Generating</option>
-                                            <option>Scaling (Seed/Series A)</option>
-                                        </select>
-                                        <i data-lucide="chevron-down" class="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"></i>
+                            <!-- === FOUNDER SPECIFIC FIELDS === -->
+                            <div id="section-founder" class="space-y-6 form-section">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Startup Name *</label>
+                                        <input type="text" id="founderStartup" class="role-input w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Unibazar">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Current Stage *</label>
+                                        <div class="relative">
+                                            <select id="founderStage" class="role-input w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus appearance-none">
+                                                <option>Idea Stage (Concept)</option>
+                                                <option>MVP (Prototype Ready)</option>
+                                                <option>Early Traction (Pre-Revenue)</option>
+                                                <option>Revenue Generating</option>
+                                                <option>Scaling (Seed/Series A)</option>
+                                            </select>
+                                            <i data-lucide="chevron-down" class="absolute right-5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"></i>
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Website / LinkedIn</label>
-                                    <input type="text" id="website" name="Website" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="https://...">
+                                    <input type="text" id="founderWebsite" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="https://...">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">The 180-Second Pitch (Text Draft) *</label>
+                                    <p class="text-[10px] text-slate-400 mb-2">Describe your problem, solution, and unique value proposition briefly.</p>
+                                    <textarea id="founderPitch" rows="5" class="role-input w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="We are solving [Problem] for [Target Audience] by providing [Solution]..."></textarea>
                                 </div>
                             </div>
 
-                            <!-- Pitch -->
-                            <div>
-                                <label class="block text-xs font-bold uppercase text-slate-400 mb-2">The 180-Second Pitch (Text Draft) *</label>
-                                <p class="text-[10px] text-slate-400 mb-2">Describe your problem, solution, and unique value proposition briefly.</p>
-                                <textarea id="pitch" name="Pitch_Content" rows="5" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="We are solving [Problem] for [Target Audience] by providing [Solution]..." required></textarea>
+                            <!-- === INVESTOR SPECIFIC FIELDS === -->
+                            <div id="section-investor" class="space-y-6 hidden form-section">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Firm / Angel Entity Name *</label>
+                                    <input type="text" id="investorFirm" class="role-input w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Ventures LLP / Independent Angel">
+                                </div>
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-slate-400 mb-2">LinkedIn / Portfolio URL *</label>
+                                        <input type="text" id="investorLinkedIn" class="role-input w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="https://linkedin.com/in/...">
+                                    </div>
+                                    <div>
+                                        <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Investment Focus / Ticket Size</label>
+                                        <input type="text" id="investorFocus" class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="e.g. Fintech, 5L - 25L">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- === SPONSOR SPECIFIC FIELDS === -->
+                            <div id="section-sponsor" class="space-y-6 hidden form-section">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Company Name *</label>
+                                    <input type="text" id="sponsorCompany" class="role-input w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="Company Pvt Ltd">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase text-slate-400 mb-2">Message / Sponsorship Query *</label>
+                                    <textarea id="sponsorMessage" rows="4" class="role-input w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-xl input-focus" placeholder="We are interested in Gold tier sponsorship..."></textarea>
+                                </div>
                             </div>
 
                             <button type="submit" id="submitBtn" class="w-full py-5 bg-[#2A5A8E] text-white font-black rounded-xl shadow-lg hover:bg-[#1a3a5e] transition-colors flex items-center justify-center gap-3">
-                                <span>Submit Application</span>
+                                <span id="btnLabel">Submit Application</span>
                                 <i data-lucide="arrow-right" class="w-5 h-5" id="btnIcon"></i>
                                 <div id="btnLoader" class="loader hidden"></div>
                             </button>
@@ -126,7 +171,7 @@
                     </div>
                 </div>
 
-                <!-- Contact Info -->
+                <!-- Contact Info Sidebar -->
                 <div class="lg:col-span-2">
                     <h3 class="text-2xl font-bold text-[#2A5A8E] mb-8">Get in Touch</h3>
                     <div class="space-y-8">
@@ -154,9 +199,9 @@
                     </div>
 
                     <div class="mt-12 p-8 bg-[#3ECBCB]/10 rounded-3xl border border-[#3ECBCB]/20">
-                        <h4 class="font-bold text-[#2A5A8E] mb-2 text-lg">Are you an Investor?</h4>
-                        <p class="text-slate-600 text-sm mb-4">We have exclusive slots for Angel Investors and VCs. Contact us for a guest pass.</p>
-                        <a href="mailto:event@unibazar.in?subject=Investor%20Pass%20Request" class="text-[#2A5A8E] font-bold text-sm underline">Partner with us &rarr;</a>
+                        <h4 class="font-bold text-[#2A5A8E] mb-2 text-lg">Download Deck</h4>
+                        <p class="text-slate-600 text-sm mb-4">Want to know more about the event structure and previous success stories?</p>
+                        <a href="#" class="text-[#2A5A8E] font-bold text-sm underline">View PDF &rarr;</a>
                     </div>
                 </div>
             </div>
@@ -226,49 +271,158 @@
     <script>
         lucide.createIcons();
 
+        // Initialize form with defaults
+        document.addEventListener('DOMContentLoaded', () => {
+            switchRole('founder');
+        });
+
+        function switchRole(role) {
+            // 1. Update Hidden State
+            document.getElementById('currentRole').value = role;
+
+            // 2. Reset Button Styles
+            const tabs = ['founder', 'investor', 'sponsor'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === role) {
+                    btn.className = "tab-btn flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 bg-[#2A5A8E] text-white";
+                } else {
+                    btn.className = "tab-btn flex-1 py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 bg-slate-50 text-slate-500 hover:bg-slate-100";
+                }
+            });
+
+            // 3. Toggle Sections & Validation
+            // Hide all first
+            ['section-founder', 'section-investor', 'section-sponsor'].forEach(id => {
+                document.getElementById(id).classList.add('hidden');
+            });
+            
+            // Remove 'required' from all specific inputs to prevent validation errors on hidden fields
+            document.querySelectorAll('.role-input').forEach(input => input.removeAttribute('required'));
+
+            // Show selected and add 'required' back to visible inputs
+            const activeSection = document.getElementById(`section-${role}`);
+            activeSection.classList.remove('hidden');
+            
+            // Re-apply required to inputs inside the active section (only those with class role-input)
+            // Note: Optional fields like website/focus are handled by not having 'required' initially or strictly
+            if (role === 'founder') {
+                document.getElementById('founderStartup').setAttribute('required', '');
+                document.getElementById('founderStage').setAttribute('required', '');
+                document.getElementById('founderPitch').setAttribute('required', '');
+                
+                document.getElementById('formTitle').innerText = "Startup Application";
+                document.getElementById('formDesc').innerText = "Selected startups will be invited to pitch physically in Bhopal.";
+                document.getElementById('btnLabel').innerText = "Submit Application";
+            } 
+            else if (role === 'investor') {
+                document.getElementById('investorFirm').setAttribute('required', '');
+                document.getElementById('investorLinkedIn').setAttribute('required', '');
+                
+                document.getElementById('formTitle').innerText = "Investor Registration";
+                document.getElementById('formDesc').innerText = "Join us to discover the best Tier-2 startups.";
+                document.getElementById('btnLabel').innerText = "Register as Investor";
+            } 
+            else if (role === 'sponsor') {
+                document.getElementById('sponsorCompany').setAttribute('required', '');
+                document.getElementById('sponsorMessage').setAttribute('required', '');
+
+                document.getElementById('formTitle').innerText = "Sponsor Inquiry";
+                document.getElementById('formDesc').innerText = "Partner with us to increase your brand visibility.";
+                document.getElementById('btnLabel').innerText = "Send Inquiry";
+            }
+        }
+
         async function handleFormSubmit(event) {
             event.preventDefault();
             
             // UI States
             const btn = document.getElementById('submitBtn');
-            const btnText = btn.querySelector('span');
+            const btnText = document.getElementById('btnLabel');
             const btnIcon = document.getElementById('btnIcon');
             const loader = document.getElementById('btnLoader');
             const successMsg = document.getElementById('successMessage');
 
-            // 1. Get Values
-            const founderName = document.getElementById('founderName').value;
-            const startupName = document.getElementById('startupName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const stage = document.getElementById('stage').value;
-            const website = document.getElementById('website').value || 'Not provided';
-            const pitch = document.getElementById('pitch').value;
+            // 1. Get Common Values
+            const role = document.getElementById('currentRole').value;
+            const name = document.getElementById('commonName').value;
+            const email = document.getElementById('commonEmail').value;
+            const phone = document.getElementById('commonPhone').value;
 
-            // 2. Prepare Structured Data (Formatted specifically for the email body)
-            const formattedBody = 
-`NEW STARTUP APPLICATION - PITCHIN180SEC
-----------------------------------------
+            // 2. Construct Data Body based on Role
+            let formattedBody = "";
+            let emailSubject = "";
 
-FOUNDER DETAILS
-Name: ${founderName}
+            if (role === 'founder') {
+                const startup = document.getElementById('founderStartup').value;
+                const stage = document.getElementById('founderStage').value;
+                const web = document.getElementById('founderWebsite').value || 'N/A';
+                const pitch = document.getElementById('founderPitch').value;
+
+                emailSubject = `Startup Application: ${startup} - [Pitchin180Sec]`;
+                formattedBody = 
+`NEW STARTUP APPLICATION
+-----------------------
+Role: FOUNDER
+
+APPLICANT
+Name: ${name}
 Email: ${email}
 Phone: ${phone}
-Website/LinkedIn: ${website}
 
 STARTUP DETAILS
-Name: ${startupName}
-Current Stage: ${stage}
+Name: ${startup}
+Stage: ${stage}
+Website: ${web}
 
 THE PITCH
-----------------------------------------
-${pitch}
+-----------------------
+${pitch}`;
 
-----------------------------------------
-Source: Pitchin180Sec Web Form`;
+            } else if (role === 'investor') {
+                const firm = document.getElementById('investorFirm').value;
+                const linkedIn = document.getElementById('investorLinkedIn').value;
+                const focus = document.getElementById('investorFocus').value || 'N/A';
 
-            // Update the hidden fields
-            document.getElementById('hiddenSubject').value = `Application: ${startupName} - [Pitchin180Sec]`;
+                emailSubject = `Investor Registration: ${name} - [Pitchin180Sec]`;
+                formattedBody = 
+`NEW INVESTOR REGISTRATION
+-------------------------
+Role: INVESTOR
+
+APPLICANT
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+
+PROFILE
+Firm/Angel Entity: ${firm}
+LinkedIn/Portfolio: ${linkedIn}
+Investment Focus: ${focus}`;
+
+            } else if (role === 'sponsor') {
+                const company = document.getElementById('sponsorCompany').value;
+                const msg = document.getElementById('sponsorMessage').value;
+
+                emailSubject = `Sponsor Inquiry: ${company} - [Pitchin180Sec]`;
+                formattedBody = 
+`NEW SPONSOR INQUIRY
+-------------------
+Role: SPONSOR
+
+CONTACT
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
+Company: ${company}
+
+MESSAGE
+-------------------
+${msg}`;
+            }
+
+            // Update hidden fields for Formspree
+            document.getElementById('hiddenSubject').value = emailSubject;
             document.getElementById('hiddenFormattedData').value = formattedBody;
 
             // 3. Set Loading State
@@ -278,7 +432,7 @@ Source: Pitchin180Sec Web Form`;
             loader.classList.remove('hidden');
 
             try {
-                // 4. Send via Formspree AJAX (No Redirect)
+                // 4. Send via Formspree AJAX
                 // YOUR PROVIDED URL: https://formspree.io/f/mbdyddeb
                 const form = event.target;
                 const data = new FormData(form);
@@ -292,18 +446,17 @@ Source: Pitchin180Sec Web Form`;
                 });
 
                 if (response.ok) {
-                    // Success: Show Overlay
                     successMsg.classList.remove('hidden');
                     form.reset();
+                    // Reset to default view after success if needed
+                    // switchRole('founder'); 
                 } else {
-                    // Error from Service
                     const json = await response.json();
                     console.log(json);
-                    alert("Submission failed. Please try again.");
+                    alert("Submission failed. Please check inputs and try again.");
                     resetBtn();
                 }
             } catch (error) {
-                // Network Error
                 console.log(error);
                 alert("Network error. Please check your connection.");
                 resetBtn();
@@ -311,7 +464,7 @@ Source: Pitchin180Sec Web Form`;
 
             function resetBtn() {
                 btn.disabled = false;
-                btnText.textContent = "Submit Application";
+                btnText.textContent = (role === 'sponsor') ? "Send Inquiry" : (role === 'investor' ? "Register as Investor" : "Submit Application");
                 btnIcon.classList.remove('hidden');
                 loader.classList.add('hidden');
             }
