@@ -160,7 +160,7 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 8px 32px rgba(42, 90, 142, 0.05);
-            transform: translateZ(50px);
+            /* Removed 3D transform from fixed nav to prevent visibility issues */
         }
         
         .nav-link { position: relative; font-weight: 600; transition: color 0.3s ease; }
@@ -301,10 +301,10 @@
                 <!-- Logo -->
                 <a href="index.html" class="flex items-center gap-3 group relative z-50">
                     <div class="w-11 h-11 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-[0_5px_15px_rgba(42,90,142,0.15)] border border-slate-100 transition-all group-hover:rotate-12 group-hover:scale-110 group-hover:shadow-[0_8px_20px_rgba(62,203,203,0.3)]">
-                    <img src="unibazar.jpg" alt="Logo" class="w-full h-full object-contain p-1">
+                    <img src="unibazar.png" alt="Logo" class="w-full h-full object-contain p-1">
                     </div>
                     <div class="flex flex-col transform transition-transform group-hover:translate-x-1">
-                        <span class="text-2xl font-black text-[#2A5A8E] leading-none tracking-tight drop-shadow-sm">Pitchin<span class="text-[#3ECBCB]">180</span>Sec</span>
+                        <span class="text-2xl font-black text-[#2A5A8E] leading-none tracking-tight drop-shadow-sm">PitchIn<span class="text-[#3ECBCB]">180</span> Sec</span>
                         <span class="text-[10px] uppercase tracking-widest font-bold text-slate-400 group-hover:text-[#3ECBCB] transition-colors ml-0.5">By Unibazar</span>
                     </div>
                 </a>
