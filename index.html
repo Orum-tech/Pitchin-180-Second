@@ -13,9 +13,6 @@
             --primary: #2A5A8E;
             --primary-dark: #1a3c61;
             --accent: #3ECBCB;
-            --accent-glow: rgba(62, 203, 203, 0.6);
-            --glass-surface: rgba(255, 255, 255, 0.65);
-            --glass-border: rgba(255, 255, 255, 0.8);
         }
 
         body { 
@@ -32,7 +29,6 @@
             perspective: 1200px;
         }
         
-        /* High-Fidelity 3D Typography */
         .gradient-text { 
             background-image: linear-gradient(135deg, #2A5A8E 0%, #3ECBCB 100%); 
             background-clip: text; 
@@ -62,7 +58,6 @@
                 0 12px 24px rgba(0,0,0,0.3);
         }
 
-        /* 3D Liquid Button */
         .btn-3d {
             background-image: linear-gradient(135deg, #2A5A8E 0%, #3ECBCB 100%);
             box-shadow: 
@@ -92,7 +87,6 @@
 
         .gradient-bg { background-image: linear-gradient(135deg, #2A5A8E 0%, #3ECBCB 100%); }
 
-        /* Advanced Glass Cards with Glare */
         .glass-card { 
             background: linear-gradient(145deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.6) 100%);
             backdrop-filter: blur(24px);
@@ -131,7 +125,6 @@
             box-shadow: 0 30px 60px -15px rgba(42, 90, 142, 0.3), 0 0 0 1px rgba(62, 203, 203, 0.3);
         }
 
-        /* Navigation Bar */
         .glass-nav {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
@@ -153,7 +146,6 @@
         }
         .nav-link:hover::after { width: 100%; }
         
-        /* Animations */
         @keyframes float-hero {
             0%, 100% { transform: translateY(0px) rotateX(0deg) scale(1); }
             50% { transform: translateY(-20px) rotateX(2deg) scale(1.02); }
@@ -166,11 +158,9 @@
         }
         .pulse-3d { animation: pulse-glow 3s infinite; }
 
-        /* Geometry */
         .slant-bottom { clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); z-index: 2; position: relative; }
         .slant-top { clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%); margin-top: -100px; padding-top: 150px; z-index: 1; background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%); }
 
-        /* 3D Images */
         .img-3d-wrapper { perspective: 1500px; }
         .img-3d { 
             transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
@@ -184,7 +174,6 @@
             z-index: 10;
         }
         
-        /* Partner Logos */
         .partner-box {
             background: linear-gradient(145deg, #ffffff, #f1f5f9);
             box-shadow: 10px 10px 20px #e2e8f0, -10px -10px 20px #ffffff;
@@ -206,10 +195,8 @@
         }
         .group:hover .partner-img { filter: grayscale(0%) opacity(1); transform: scale(1.1); }
 
-        /* Interactive Canvas */
         #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
-        /* Mobile */
         @media (max-width: 768px) {
             .slant-bottom, .slant-top { clip-path: none; margin-top: 0; padding-top: 5rem; }
         }
@@ -670,7 +657,7 @@
             document.getElementById('secs').innerText = String(Math.floor((d%(1000*60))/1000)).padStart(2,'0');
         }, 1000);
 
-        // Mobile Menu Toggle (Preserved & Enhanced)
+        // Mobile Menu Toggle (Fixed)
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         

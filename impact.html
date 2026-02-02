@@ -274,19 +274,19 @@
         const mobileMenu = document.getElementById('mobile-menu');
         let isMenuOpen = false;
         
-        menuBtn.addEventListener('click', () => {
-            isMenuOpen = !isMenuOpen;
-            if (isMenuOpen) {
-                mobileMenu.classList.remove('translate-x-full');
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            if (!mobileMenu.classList.contains('translate-x-full')) {
                 document.body.style.overflow = 'hidden';
                 menuBtn.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
             } else {
-                mobileMenu.classList.add('translate-x-full');
                 document.body.style.overflow = 'auto';
                 menuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
-                lucide.createIcons();
             }
-        });
+            lucide.createIcons();
+        }
+
+        menuBtn.addEventListener('click', toggleMenu);
     </script>
 </body>
 </html>
