@@ -8,11 +8,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* * 3D ENGINE & THEME PRESERVATION
-         * Colors: Primary #2A5A8E (Deep Blue) | Accent #3ECBCB (Cyan)
-         * Added Depth Shades: #1a3c61 (Darker Blue), #e0f7fa (Ice White)
-         */
-        
+        /* * 3D ENGINE & THEME PRESERVATION */
         :root {
             --primary: #2A5A8E;
             --primary-dark: #1a3c61;
@@ -25,7 +21,6 @@
         body { 
             font-family: 'Inter', sans-serif; 
             background-color: #F8FAFC; 
-            /* Subtle hexagonal pattern overlay for tech feel */
             background-image: 
                 radial-gradient(circle at 100% 0%, rgba(62, 203, 203, 0.1) 0%, transparent 40%),
                 radial-gradient(circle at 0% 100%, rgba(42, 90, 142, 0.1) 0%, transparent 40%),
@@ -89,19 +84,13 @@
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
             transition: 0.5s;
         }
-        .btn-3d:hover::after {
-            left: 100%;
-        }
+        .btn-3d:hover::after { left: 100%; }
         .btn-3d:active {
             top: 6px;
-            box-shadow: 
-                0 2px 5px -2px rgba(42, 90, 142, 0.4),
-                0 0px 0px 0px #1a3c61;
+            box-shadow: 0 2px 5px -2px rgba(42, 90, 142, 0.4), 0 0px 0px 0px #1a3c61;
         }
 
-        .gradient-bg {
-            background-image: linear-gradient(135deg, #2A5A8E 0%, #3ECBCB 100%); 
-        }
+        .gradient-bg { background-image: linear-gradient(135deg, #2A5A8E 0%, #3ECBCB 100%); }
 
         /* Advanced Glass Cards with Glare */
         .glass-card { 
@@ -110,9 +99,7 @@
             -webkit-backdrop-filter: blur(24px);
             border: 1px solid rgba(255,255,255,0.8);
             border-bottom: 1px solid rgba(255,255,255,0.3);
-            box-shadow: 
-                0 20px 40px -10px rgba(42, 90, 142, 0.15),
-                inset 0 0 0 1px rgba(255,255,255,0.5);
+            box-shadow: 0 20px 40px -10px rgba(42, 90, 142, 0.15), inset 0 0 0 1px rgba(255,255,255,0.5);
             border-radius: 28px;
             transform-style: preserve-3d;
             transform: perspective(1000px);
@@ -121,7 +108,6 @@
             overflow: hidden;
         }
         
-        /* Glare Effect */
         .glass-card::before {
             content: '';
             position: absolute;
@@ -138,29 +124,19 @@
         }
         .glass-card:hover::before { opacity: 0.5; }
         
-        /* Content Float */
-        .glass-card-content {
-            transform: translateZ(30px);
-            transform-style: preserve-3d;
-        }
-        .glass-icon {
-            transform: translateZ(50px);
-            filter: drop-shadow(0 10px 20px rgba(62, 203, 203, 0.3));
-        }
+        .glass-card-content { transform: translateZ(30px); transform-style: preserve-3d; }
+        .glass-icon { transform: translateZ(50px); filter: drop-shadow(0 10px 20px rgba(62, 203, 203, 0.3)); }
         
         .glass-card:hover {
-            box-shadow: 
-                0 30px 60px -15px rgba(42, 90, 142, 0.3),
-                0 0 0 1px rgba(62, 203, 203, 0.3);
+            box-shadow: 0 30px 60px -15px rgba(42, 90, 142, 0.3), 0 0 0 1px rgba(62, 203, 203, 0.3);
         }
 
         /* Navigation Bar */
         .glass-nav {
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.5);
             box-shadow: 0 8px 32px rgba(42, 90, 142, 0.05);
-            /* Removed 3D transform from fixed nav to prevent visibility issues */
         }
         
         .nav-link { position: relative; font-weight: 600; transition: color 0.3s ease; }
@@ -191,64 +167,35 @@
         .pulse-3d { animation: pulse-glow 3s infinite; }
 
         /* Geometry */
-        .slant-bottom {
-            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
-            z-index: 2;
-            position: relative;
-        }
-        .slant-top {
-            clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
-            margin-top: -100px;
-            padding-top: 150px;
-            z-index: 1;
-            background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
-        }
+        .slant-bottom { clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%); z-index: 2; position: relative; }
+        .slant-top { clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%); margin-top: -100px; padding-top: 150px; z-index: 1; background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%); }
 
         /* 3D Images */
-        .img-3d-wrapper {
-            perspective: 1500px;
-        }
+        .img-3d-wrapper { perspective: 1500px; }
         .img-3d { 
             transition: all 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); 
             transform-style: preserve-3d;
-            box-shadow: 
-                0 20px 50px rgba(0,0,0,0.15),
-                0 0 0 1px rgba(255,255,255,0.2);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.2);
             border-radius: 32px;
         }
         .img-3d:hover { 
             transform: rotateX(2deg) rotateY(-2deg) scale(1.05) translateZ(20px); 
-            box-shadow: 
-                0 40px 80px rgba(42, 90, 142, 0.2),
-                0 0 0 2px rgba(62, 203, 203, 0.5);
+            box-shadow: 0 40px 80px rgba(42, 90, 142, 0.2), 0 0 0 2px rgba(62, 203, 203, 0.5);
             z-index: 10;
         }
         
         /* Partner Logos */
         .partner-box {
             background: linear-gradient(145deg, #ffffff, #f1f5f9);
-            box-shadow: 
-                10px 10px 20px #e2e8f0, 
-                -10px -10px 20px #ffffff;
+            box-shadow: 10px 10px 20px #e2e8f0, -10px -10px 20px #ffffff;
             border-radius: 24px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        .partner-box::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.8), transparent);
-            transform: translateX(-100%);
-            transition: 0.5s;
-        }
-        .partner-box:hover::before { transform: translateX(100%); }
         .partner-box:hover {
             transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-                15px 15px 30px #cbd5e1, 
-                -15px -15px 30px #ffffff;
+            box-shadow: 15px 15px 30px #cbd5e1, -15px -15px 30px #ffffff;
             border: 1px solid #3ECBCB;
         }
         .partner-img { 
@@ -257,36 +204,18 @@
             max-width: 65%;
             mix-blend-mode: multiply;
         }
-        .group:hover .partner-img { 
-            filter: grayscale(0%) opacity(1); 
-            transform: scale(1.1); 
-        }
+        .group:hover .partner-img { filter: grayscale(0%) opacity(1); transform: scale(1.1); }
 
         /* Interactive Canvas */
-        #hero-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none; /* Let clicks pass through */
-        }
+        #hero-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
 
         /* Mobile */
         @media (max-width: 768px) {
             .slant-bottom, .slant-top { clip-path: none; margin-top: 0; padding-top: 5rem; }
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+        .reveal { opacity: 0; transform: translateY(40px) scale(0.95); transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
     </style>
 </head>
 <body class="text-slate-700 antialiased selection:bg-[#3ECBCB] selection:text-white relative">
@@ -301,7 +230,7 @@
                 <!-- Logo -->
                 <a href="index.html" class="flex items-center gap-3 group relative z-50">
                     <div class="w-11 h-11 rounded-xl overflow-hidden bg-white flex items-center justify-center shadow-[0_5px_15px_rgba(42,90,142,0.15)] border border-slate-100 transition-all group-hover:rotate-12 group-hover:scale-110 group-hover:shadow-[0_8px_20px_rgba(62,203,203,0.3)]">
-                    <img src="unibazar.jpg" alt="Logo" class="w-full h-full object-contain p-1">
+                        <img src="unibazar.jpg" alt="Logo" class="w-full h-full object-contain p-1">
                     </div>
                     <div class="flex flex-col transform transition-transform group-hover:translate-x-1">
                         <span class="text-2xl font-black text-[#2A5A8E] leading-none tracking-tight drop-shadow-sm">PitchIn<span class="text-[#3ECBCB]">180</span> Sec</span>
@@ -741,7 +670,7 @@
             document.getElementById('secs').innerText = String(Math.floor((d%(1000*60))/1000)).padStart(2,'0');
         }, 1000);
 
-        // Mobile Menu Toggle (Preserved)
+        // Mobile Menu Toggle (Preserved & Enhanced)
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         
@@ -749,9 +678,12 @@
             mobileMenu.classList.toggle('translate-x-full');
             if (!mobileMenu.classList.contains('translate-x-full')) {
                 document.body.style.overflow = 'hidden';
+                menuBtn.innerHTML = '<i data-lucide="x" class="w-6 h-6"></i>';
             } else {
                 document.body.style.overflow = 'auto';
+                menuBtn.innerHTML = '<i data-lucide="menu" class="w-6 h-6"></i>';
             }
+            lucide.createIcons();
         }
 
         menuBtn.addEventListener('click', toggleMenu);
